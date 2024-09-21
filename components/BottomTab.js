@@ -6,34 +6,52 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
+    View,
 } from 'react-native'
-import { Icon } from 'react-native-vector-icons/Icon'
-import COLOS from '../constants/colors'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import COLOS from '../constants/color'
+import HomePage from '../screens/HomePage'
 
 const tabs = [
     {
         id: 1,
         name: 'Home',
-        component: <>Page 1</>,
+        component: HomePage,
         label: 'Home',
         icon: 'home',
         inActiveIcon: 'home-outline',
     },
     {
         id: 2,
-        name: 'Home2',
-        component: <>Page 2</>,
-        label: 'Home',
-        icon: 'home',
-        inActiveIcon: 'home-outline',
+        name: 'Map',
+        component: HomePage,
+        label: 'Map',
+        icon: 'map',
+        inActiveIcon: 'map-outline',
+    },
+    {
+        id: 6,
+        name: 'Tour',
+        component: HomePage,
+        label: 'Tour',
+        icon: 'podium',
+        inActiveIcon: 'podium-outline',
     },
     {
         id: 3,
-        name: 'Home3',
-        component: <>Page 3</>,
-        label: 'Home',
-        icon: 'home',
-        inActiveIcon: 'home-outline',
+        name: 'Gift',
+        component: HomePage,
+        label: 'Gift',
+        icon: 'gift',
+        inActiveIcon: 'gift-outline',
+    },
+    {
+        id: 4,
+        name: 'Person',
+        component: HomePage,
+        label: 'Person',
+        icon: 'person',
+        inActiveIcon: 'person-outline',
     },
 ]
 
@@ -44,7 +62,7 @@ const MARGIN = 12.5
 const TAB_BAR_WIDTH = width - 2 * MARGIN
 const TAB_WIDTH = TAB_BAR_WIDTH / tabs.length
 
-const TabIcon = ({ isFocused, tabIcon, label, index }) => {
+const TabIcon = ({ isFocused, tabIcon, label, index, isMiddle }) => {
     const [translateY] = useState(new Animated.Value(0))
     const translateIcon = (value) => {
         Animated.spring(translateY, {
@@ -53,28 +71,28 @@ const TabIcon = ({ isFocused, tabIcon, label, index }) => {
         }).start()
     }
 
-    useEffect(() => {
-        if (isFocused) translateIcon(-14)
-        else translateIcon(0)
-    }, [index])
+    // useEffect(() => {
+    //     if (isFocused && !isMiddle) translateIcon(-14)
+    //     else translateIcon(0)
+    // }, [index])
 
     return (
         <>
             <Animated.View style={{ transform: [{ translateY }] }}>
-                <Icon
-                    name={isFocused ? tabIcon.activeIcon : tabIcon.inActiveIcon}
-                    size={28}
-                    color={isFocused ? COLOS.white : COLOS.black}
-                />
+                {isMiddle ? (
+                    <Ionicons
+                        name={tabIcon.activeIcon}
+                        size={38}
+                        color={COLOS.primary}
+                    />
+                ) : (
+                    <Ionicons
+                        name={tabIcon.activeIcon}
+                        size={28}
+                        color={isFocused ? COLOS.white : COLOS.lightgreen}
+                    />
+                )}
             </Animated.View>
-            <Text
-                style={{
-                    color: isFocused ? COLOS.primary : COLOS.black,
-                    fontWeight: 'bold',
-                }}
-            >
-                {label}
-            </Text>
         </>
     )
 }
@@ -105,8 +123,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
                     options.tabBarLabel !== undefined
                         ? options.tabBarLabel
                         : options.title !== undefined
-                        ? options.title
-                        : route.name
+                            ? options.title
+                            : route.name
 
                 const isFocused = state.index === index
 
@@ -128,7 +146,10 @@ const TabBar = ({ state, descriptors, navigation }) => {
                         target: route.key,
                     })
                 }
+
                 const tabBarIcon = options.tabBarIcon
+                const isMiddle = index === Math.floor(tabs.length / 2)
+
                 return (
                     <TouchableOpacity
                         key={route.key}
@@ -138,20 +159,32 @@ const TabBar = ({ state, descriptors, navigation }) => {
                         testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={{ flex: 1, alignItems: 'center' }}
+                        style={[
+                            styles.normalButton,
+                            isMiddle && styles.middleButton,
+                        ]}
                     >
-                        <TabIcon
+                        {isMiddle ? (
+                            <TabIcon
+                                tabIcon={tabBarIcon}
+                                isFocused={isFocused}
+                                index={state.index}
+                                //label={label}
+                                isMiddle={isMiddle}
+                            />
+                        ) : (<TabIcon
                             tabIcon={tabBarIcon}
                             isFocused={isFocused}
                             label={label}
                             index={state.index}
-                        />
+                        />)}
                     </TouchableOpacity>
                 )
             })}
         </View>
     )
 }
+
 
 export default function BottomTab() {
     return (
@@ -189,7 +222,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         bottom: MARGIN,
-        backgroundColor: COLOS.white,
+        backgroundColor: COLOS.primary,
         elevation: 3,
         borderRadius: 10,
         alignItems: 'center',
@@ -201,12 +234,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     slidingTab: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: COLOS.primary,
-        bottom: 25,
-        borderWidth: 4,
+        width: 45,
+        backgroundColor: COLOS.white,
+        bottom: -50,
+        borderWidth: 1,
         borderColor: COLOS.white,
     },
+    normalButton: {
+        flex: 1,
+        alignItems: "center"
+    },
+    middleButton: {
+        height: 70,
+        width: 70,
+        borderRadius: 1000,
+        marginBottom: 50,
+        backgroundColor: COLOS.white,
+        justifyContent: "center",
+        borderWidth: 3,
+        borderColor: COLOS.primary,
+        flex: 0
+    }
 })
