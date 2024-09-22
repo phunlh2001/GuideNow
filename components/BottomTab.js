@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react'
 import {
     Animated,
     Dimensions,
+    Keyboard,
     StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+    TouchableOpacity
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import COLOS from '../constants/color'
@@ -110,8 +109,33 @@ const TabBar = ({ state, descriptors, navigation }) => {
         translateTab(state.index)
     }, [state.index])
 
+    const [keyboardVisible, setKeyboardVisible] = useState(false)
+    const [tabBarBottom] = useState(new Animated.Value(MARGIN)) // Initial bottom margin
+
+    useEffect(() => {
+        const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+            Animated.timing(tabBarBottom, {
+                toValue: -100, // Move tab bar out of screen
+                duration: 500,
+                useNativeDriver: false,
+            }).start(() => setKeyboardVisible(true))
+        })
+        const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+            Animated.timing(tabBarBottom, {
+                toValue: MARGIN, // Restore tab bar position
+                duration: 500,
+                useNativeDriver: false,
+            }).start(() => setKeyboardVisible(false))
+        })
+
+        return () => {
+            showSubscription.remove()
+            hideSubscription.remove()
+        }
+    }, [])
+
     return (
-        <View style={styles.tabBarContainer}>
+        <Animated.View style={[styles.tabBarContainer, { bottom: tabBarBottom }]}>
             <Animated.View style={styles.slidingTabContainer}>
                 <Animated.View
                     style={[styles.slidingTab, { transform: [{ translateX }] }]}
@@ -181,10 +205,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
                     </TouchableOpacity>
                 )
             })}
-        </View>
+        </Animated.View>
     )
 }
-
 
 export default function BottomTab() {
     return (
