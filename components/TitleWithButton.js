@@ -4,16 +4,16 @@ import { Button } from 'react-native-elements'
 import SIZES from '../constants/fontsize'
 import COLORS from '../constants/color'
 
-const TitleWithButton = ({title}) => {
+const TitleWithButton = ({ title, callBack }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={callBack}>
                 <Text>
                     All
                 </Text>
             </TouchableOpacity>
-        </View>
+        </View >
     )
 }
 

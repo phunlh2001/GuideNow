@@ -10,6 +10,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import COLOS from '../constants/color'
 import HomePage from '../screens/HomePage'
+import AttractiveOffer from '../screens/AttractiveOffer'
 
 const tabs = [
     {
@@ -38,9 +39,9 @@ const tabs = [
     },
     {
         id: 3,
-        name: 'Gift',
-        component: HomePage,
-        label: 'Gift',
+        name: 'Offer',
+        component: AttractiveOffer,
+        label: 'Offer',
         icon: 'gift',
         inActiveIcon: 'gift-outline',
     },

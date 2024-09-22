@@ -35,9 +35,6 @@ const HotTrending = ({ data, sizeScreen }) => {
 
     return (
         <View style={styles.container}>
-            <View style={{ paddingHorizontal: 20 }}>
-                <TitleWithButton title={"Hot Trending"} />
-            </View>
             <Carousel
                 data={data}
                 renderItem={renderItem}
@@ -76,8 +73,9 @@ export default HotTrending
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        marginTop: 20,
-        position: 'relative'
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     item: {
         height: 200,
@@ -87,6 +85,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.title,
         color: COLORS.white,
         fontWeight: 'bold',
+        textTransform: 'uppercase'
     },
     imageContainer: {
         flex: 1,

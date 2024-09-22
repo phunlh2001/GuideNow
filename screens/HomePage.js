@@ -12,7 +12,15 @@ import { globalData } from '../sampleData/data'
 
 const width = Dimensions.get('screen').width / 2 - 30
 
-const HomePage = () => {
+const HomePage = ({ navigation }) => {
+
+    const navigateToOffer = () => {
+        navigation.navigate('Offer')
+    }
+
+    const navigateToHottrending = () => {
+        console.log("Navigate hot")
+    }
 
     const Card = ({ item }) => {
         return (
@@ -34,7 +42,7 @@ const HomePage = () => {
     }
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
             <View>
                 <HomeHeader />
                 <View style={styles.searchSection}>
@@ -51,9 +59,12 @@ const HomePage = () => {
                         <TextInput placeholder='Find your favourite place' />
                     </View>
                 </View>
+                <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
+                    <TitleWithButton title={"Hot Trending"} callBack={navigateToHottrending} />
+                </View>
                 <MyCarousel data={globalData} sizeScreen={SIZESCREEN.MIDDLE} />
                 <View style={{ paddingHorizontal: 20, marginTop: 30, marginBottom: 150 }}>
-                    <TitleWithButton title={'Attractive Offers'} />
+                    <TitleWithButton title={'Attractive Offers'} callBack={navigateToOffer} />
                     <Card item={globalData} />
                 </View>
             </View>
