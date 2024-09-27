@@ -4,6 +4,7 @@ import { Image } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native'
 import SIZES from '../constants/fontsize'
 import COLORS from '../constants/color'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const width = Dimensions.get('screen').width / 2 - 20
 
@@ -16,9 +17,19 @@ const FlexContent = ({ data, titleBtn, isShowStart }) => {
             <View style={styles.right}>
                 <Text style={{ fontWeight: 'bold', fontSize: SIZES.title }}>{data.title}</Text>
                 <Text style={{ width: '80%', fontSize: SIZES.caption }} numberOfLines={2}>{data.des}</Text>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={{ fontWeight: 'bold', color: COLORS.white }}>{titleBtn}</Text>
-                </TouchableOpacity>
+                <View style={{ display: 'flex', flexDirection: 'row', gap: 15, alignItems: 'center' }}>
+                    <TouchableOpacity style={styles.btn}>
+                        <Text style={{ fontWeight: 'bold', color: COLORS.white }}>{titleBtn}</Text>
+                    </TouchableOpacity>
+                    {isShowStart && (
+                        <View style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
+                            <Text style={{ fontWeight: 'bold', color: COLORS.primary }}>
+                                {data?.star.toFixed(1)}
+                            </Text>
+                            <Ionicons name='star' size={20} color={COLORS.primary} />
+                        </View>
+                    )}
+                </View>
             </View>
         </View>
     )
@@ -52,9 +63,10 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         backgroundColor: COLORS.primary,
         borderRadius: 50,
-        width: 70,
+        width: 'auto',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignSelf: 'flex-start'
     }
 })

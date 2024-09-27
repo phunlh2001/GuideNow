@@ -4,15 +4,17 @@ import { Button } from 'react-native-elements'
 import SIZES from '../constants/fontsize'
 import COLORS from '../constants/color'
 
-const TitleWithButton = ({ title, callBack }) => {
+const TitleWithButton = ({ title, callBack, isShowButton = true }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            <TouchableOpacity style={styles.btn} onPress={callBack}>
-                <Text>
-                    All
-                </Text>
-            </TouchableOpacity>
+            {isShowButton && (
+                <TouchableOpacity style={styles.btn} onPress={callBack}>
+                    <Text>
+                        All
+                    </Text>
+                </TouchableOpacity>
+            )}
         </View >
     )
 }

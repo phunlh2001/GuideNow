@@ -11,16 +11,6 @@ const HomeHeader = () => {
             <TouchableOpacity>
                 <Image style={styles.logo} source={require('../assets/logo.png')} />
             </TouchableOpacity>
-            <View style={styles.avatarContainer}>
-                <Avatar
-                    rounded
-                    source={{
-                        uri:
-                            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                    }}
-                    size={90}
-                />
-            </View>
             <View style={styles.headerIcon}>
                 <TouchableOpacity>
                     <Ionicons name="list" size={35} color={COLORS.primary} />
@@ -42,19 +32,14 @@ const styles = StyleSheet.create({
     },
     headerIcon: {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
         alignItems: "center",
         flexDirection: "row",
         height: "100%",
         width: 50,
-    }, logo: {
+    },
+    logo: {
         width: 50,
         height: 50
-    },
-    avatarContainer: {
-        position: 'absolute',
-        top: '10%',
-        left: '43%',
-        zIndex: 10,
     },
 })

@@ -11,6 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import COLOS from '../constants/color'
 import HomePage from '../screens/HomePage'
 import AttractiveOffer from '../screens/AttractiveOffer'
+import LocalTour from '../screens/LocalTour'
 
 const tabs = [
     {
@@ -32,7 +33,7 @@ const tabs = [
     {
         id: 6,
         name: 'Tour',
-        component: HomePage,
+        component: LocalTour,
         label: 'Tour',
         icon: 'podium',
         inActiveIcon: 'podium-outline',

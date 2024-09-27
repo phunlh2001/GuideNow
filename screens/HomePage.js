@@ -8,18 +8,18 @@ import TitleWithButton from '../components/TitleWithButton'
 import { SIZESCREEN } from '../constants/base'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
-import { globalData } from '../sampleData/data'
+import { attractiveOfferData, globalData } from '../sampleData/data'
+import { useNavigation } from '@react-navigation/native'
+import { Avatar } from 'react-native-elements'
 
 const width = Dimensions.get('screen').width / 2 - 30
 
-const HomePage = ({ navigation }) => {
+const HomePage = () => {
+
+    const navigation = useNavigation()
 
     const navigateToOffer = () => {
         navigation.navigate('Offer')
-    }
-
-    const navigateToHottrending = () => {
-        console.log("Navigate hot")
     }
 
     const Card = ({ item }) => {
@@ -29,7 +29,7 @@ const HomePage = ({ navigation }) => {
                     <TouchableOpacity key={index}>
                         <View style={styles.card}>
                             <ImageBackground source={{ uri: `${_.url}` }} resizeMode='cover' imageStyle={{ borderRadius: 20 }} style={styles.image}>
-                                <View style={{ width: "100%", padding: 15 }}>
+                                <View style={{ width: "100%", padding: 15, backgroundColor: 'rgba(0,0,0, 0.3)', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
                                     <Text style={styles.title}>{_.title}</Text>
                                     <Text style={styles.des} numberOfLines={3}>{_.des}</Text>
                                 </View>
@@ -42,7 +42,7 @@ const HomePage = ({ navigation }) => {
     }
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <View style={styles.container}>
             <View>
                 <HomeHeader />
                 <View style={styles.searchSection}>
@@ -51,6 +51,16 @@ const HomePage = ({ navigation }) => {
                         colors={["#509A5A", "#1D795C"]}
                         style={styles.background}
                     />
+                    {/* <View style={styles.avatarContainer}>
+                        <Avatar
+                            rounded
+                            source={{
+                                uri:
+                                    'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+                            }}
+                            size={90}
+                        />
+                    </View> */}
                     <Text style={styles.insideHeader}>
                         Have a nice day, Nguyen Van A
                     </Text>
@@ -59,16 +69,18 @@ const HomePage = ({ navigation }) => {
                         <TextInput placeholder='Find your favourite place' />
                     </View>
                 </View>
-                <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-                    <TitleWithButton title={"Hot Trending"} callBack={navigateToHottrending} />
-                </View>
-                <MyCarousel data={globalData} sizeScreen={SIZESCREEN.MIDDLE} />
-                <View style={{ paddingHorizontal: 20, marginTop: 30, marginBottom: 150 }}>
-                    <TitleWithButton title={'Attractive Offers'} callBack={navigateToOffer} />
-                    <Card item={globalData} />
-                </View>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
+                        <TitleWithButton title={"Hot Trending"} isShowButton={false} />
+                    </View>
+                    <MyCarousel data={globalData} sizeScreen={SIZESCREEN.MIDDLE} />
+                    <View style={{ paddingHorizontal: 20, marginTop: 30, marginBottom: 300 }}>
+                        <TitleWithButton title={'Attractive Offers'} callBack={navigateToOffer} />
+                        <Card item={attractiveOfferData} />
+                    </View>
+                </ScrollView>
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
@@ -88,15 +100,14 @@ const styles = StyleSheet.create({
         position: "relative"
     },
     background: {
-        height: 180,
-        borderBottomLeftRadius: 50,
-        borderBottomRightRadius: 50,
+        height: 130,
     },
     insideHeader: {
         position: "absolute",
         fontWeight: "bold",
-        top: "40%",
-        alignSelf: "center",
+        top: "20%",
+        left: "15%",
+        alignSelf: "flex-start",
         fontSize: SIZES.h3,
         color: COLORS.white
     },
@@ -141,5 +152,5 @@ const styles = StyleSheet.create({
     des: {
         fontSize: SIZES.caption,
         color: COLORS.white
-    }
+    },
 })
