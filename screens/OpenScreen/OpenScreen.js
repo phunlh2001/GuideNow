@@ -7,7 +7,10 @@ const OpenScreen = () => {
     const navigation = useNavigation()
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate('login')}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('login')}
+                style={styles.actionIcon}
+            >
                 <Image source={iconImage} style={styles.image} />
                 <Text style={styles.text}>Guild now</Text>
             </TouchableOpacity>
@@ -17,7 +20,7 @@ const OpenScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: '100%',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -32,6 +35,11 @@ const styles = StyleSheet.create({
     image: {
         width: 100,
         height: 100,
+    },
+    actionIcon: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })
 

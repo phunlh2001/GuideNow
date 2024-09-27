@@ -10,9 +10,8 @@ import {
 import iconLogo from '../../assets/blueLogo.png'
 import { useNavigation } from '@react-navigation/native'
 
-export default function Register() {
+export default function Register({ onNext }) {
     const navigation = useNavigation()
-    const [rememberPassword, setRememberPassword] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -23,7 +22,10 @@ export default function Register() {
             </View>
 
             {/* Title */}
-            <Text style={styles.title}>Register</Text>
+            <View style={styles.boxTitle}>
+                <Text style={styles.title}>Register</Text>
+                <Text style={styles.subTitle}>Please fill in the blank</Text>
+            </View>
 
             {/* Username Input */}
             <TextInput
@@ -46,8 +48,8 @@ export default function Register() {
                 placeholderTextColor="#347E5B"
             />
             {/* Login Button */}
-            <TouchableOpacity style={styles.loginButton}>
-                <Text style={styles.loginButtonText}>Sign Up</Text>
+            <TouchableOpacity style={styles.loginButton} onPress={onNext}>
+                <Text style={styles.loginButtonText}>Continue</Text>
             </TouchableOpacity>
             <View style={styles.moveRegister}>
                 <Text style={styles.moveText}>You have account?</Text>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         width: '100%',
         height: '100%',
-        gap: '5px',
+        gap: 5,
         paddingTop: 30,
         paddingBottom: 30,
     },
@@ -77,13 +79,13 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '2px',
+        gap: 2,
         marginBottom: 50,
     },
     logoTitle: {
         color: '#347E5B',
         fontWeight: '500',
-        fontSize: '18px',
+        fontSize: 18,
     },
     logo: {
         width: 100,
@@ -92,10 +94,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     title: {
-        fontSize: '40px',
+        fontSize: 40,
         color: '#347E5B', // Màu xanh dương
         textAlign: 'center',
-        marginBottom: 80,
         fontWeight: '800',
     },
     input: {
@@ -147,12 +148,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     moveText: {
-        fontSize: '15px',
+        fontSize: 15,
         color: '#A9A9A9',
     },
     textSpaceMove: {
-        fontSize: '18px',
+        fontSize: 18,
         fontWeight: '800',
         color: '#347E5B',
+    },
+    boxTitle: {
+        width: '100%',
+        flexDirection: 'column',
+        marginBottom: 80,
+        alignItems: 'center',
+    },
+    subTitle: {
+        fontSize: 15,
+        color: '#A9A9A9',
     },
 })
