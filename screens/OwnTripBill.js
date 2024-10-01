@@ -1,11 +1,57 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import BackTitleList from '../components/BackTitleList';
 import HeaderOwnTrip from '../components/HeaderOwnTrip';
 import COLORS from '../constants/color';
 import SIZES from '../constants/fontsize';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 const OwnTripBill = ({ navigation }) => {
+
+    const [bank, setBank] = useState(null)
+    const [promotionCode, setPromotionCode] = useState(null)
+
+    useFocusEffect(
+        useCallback(() => {
+            const getDataFromStorage = async () => {
+                try {
+                    const storedItem = await AsyncStorage.getItem('selectedBank');
+                    if (storedItem !== null) {
+                        const parsedItem = JSON.parse(storedItem);
+                        setBank(parsedItem);
+                        await AsyncStorage.removeItem('selectedBank');
+                    }
+                    const storedItemPromotion = await AsyncStorage.getItem('selectedPromotion');
+                    console.log(storedItemPromotion)
+                    if (storedItemPromotion !== null) {
+                        const parsedItem = JSON.parse(storedItemPromotion);
+                        setPromotionCode(parsedItem);
+                        await AsyncStorage.removeItem('selectedPromotion');
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+
+            getDataFromStorage();
+        })
+    );
+
+    const onEdit = async (type) => {
+        if (type === 'bank') {
+            await AsyncStorage.removeItem('selectedBank')
+            setBank(null)
+            navigation.navigate('OwnTripPayment')
+        } else {
+            await AsyncStorage.removeItem('selectedPromotion')
+            setPromotionCode(null)
+            navigation.navigate('OwnTripPromotion')
+        }
+
+    }
+
     return (
         <View style={styles.container}>
             <View style={{ marginBottom: 20 }}>
@@ -33,9 +79,17 @@ const OwnTripBill = ({ navigation }) => {
 
             <View style={styles.formField}>
                 <Text style={styles.label}>Payment method:</Text>
-                <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('OwnTripPayment')}>
-                    <Text style={styles.plusIcon}>+</Text>
-                </TouchableOpacity>
+                {!bank ? (
+                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('OwnTripPayment')}>
+                        <Text style={styles.plusIcon}>+</Text>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }} onPress={() => onEdit('bank')}>
+                        <Image source={{ uri: `${bank.url}` }} style={{ width: 30, height: 30 }} />
+                        <FontAwesome name="pencil" size={24} color={COLORS.darkGreen} />
+                    </TouchableOpacity>
+
+                )}
             </View>
 
             <View style={styles.formField}>
@@ -63,9 +117,16 @@ const OwnTripBill = ({ navigation }) => {
 
             <View style={styles.formField}>
                 <Text style={styles.label}>Promotional code:</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('OwnTripPromotion')} style={styles.addButton}>
-                    <Text style={styles.plusIcon}>+</Text>
-                </TouchableOpacity>
+                {!promotionCode ? (
+                    <TouchableOpacity onPress={() => navigation.navigate('OwnTripPromotion')} style={styles.addButton}>
+                        <Text style={styles.plusIcon}>+</Text>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }} onPress={() => onEdit('promotion')}>
+                        <Text style={{ fontWeight: 'bold' }}>{promotionCode.discount}</Text>
+                        <FontAwesome name="pencil" size={24} color={COLORS.darkGreen} />
+                    </TouchableOpacity>
+                )}
             </View>
 
             <View style={styles.formField}>

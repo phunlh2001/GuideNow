@@ -4,19 +4,22 @@ import COLORS from '../constants/color'
 import { TouchableOpacity } from 'react-native'
 import { Avatar, Image } from 'react-native-elements'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useNavigation } from '@react-navigation/native'
 
 const HomeHeader = () => {
+    const navigation = useNavigation()
+
     return (
         <View style={styles.homeHeader}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('HomePage')}>
                 <Image style={styles.logo} source={require('../assets/logo.png')} />
             </TouchableOpacity>
             <View style={styles.headerIcon}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Ionicons name="list" size={35} color={COLORS.primary} />
                 </TouchableOpacity>
             </View>
-        </View>
+        </View >
     )
 }
 

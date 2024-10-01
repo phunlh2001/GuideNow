@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
@@ -9,8 +10,6 @@ import { SIZESCREEN } from '../constants/base'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
 import { attractiveOfferData, globalData } from '../sampleData/data'
-import { useNavigation } from '@react-navigation/native'
-import { Avatar } from 'react-native-elements'
 
 const width = Dimensions.get('screen').width / 2 - 30
 

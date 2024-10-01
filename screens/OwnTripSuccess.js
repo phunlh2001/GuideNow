@@ -23,10 +23,12 @@ const OwnTripSuccess = ({ navigation }) => {
             <Text style={styles.description}>
                 You can check the schedule at section
             </Text>
-            <Text style={styles.link}>History</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('History')}>
+                <Text style={styles.link}>History</Text>
+            </TouchableOpacity>
             <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                 <TouchableOpacity onPress={handleBackToHome} style={styles.confirmBtn}>
-                    <Text style={styles.btnText}>Confirm</Text>
+                    <Text style={styles.btnText}>Back to Home</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
     },
     confirmBtn: {
         backgroundColor: COLORS.darkGreen,
-        width: 130,
+        width: 150,
         paddingVertical: 7,
         marginBottom: 50,
         borderRadius: 1000,

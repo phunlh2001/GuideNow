@@ -10,28 +10,35 @@ import COLORS from '../constants/color';
 import SIZES from '../constants/fontsize';
 import { globalData, timelineData } from '../sampleData/data';
 
-const TimeLineItem = ({ time, name, description, isLast, onEdit }) => {
-    return (
-        <View style={styles.timelineItem}>
-            <View style={styles.timeline}>
-                <View style={styles.circle} />
-                {!isLast && <View style={styles.line} />}
-            </View>
-            <View style={styles.content}>
-                <Text style={styles.time}>{time}</Text>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.description} numberOfLines={2}>{description}</Text>
-            </View>
-            <TouchableOpacity style={styles.editButton} onPress={onEdit}>
-                <FontAwesome name="pencil" size={24} color={COLORS.white} />
-            </TouchableOpacity>
-        </View>
-    );
-};
+
 
 const OwnTripCombo = ({ navigation }) => {
     const [timeline, setTimeline] = useState(timelineData);
     const [selectedIndex, setSelectedIndex] = useState(null);
+
+    const TimeLineItem = ({ time, name, description, isLast, onEdit, onRemove }) => {
+        return (
+            <View style={styles.timelineItem}>
+                <View style={styles.timeline}>
+                    <View style={styles.circle} />
+                    {!isLast && <View style={styles.line} />}
+                </View>
+                <View style={styles.content}>
+                    <Text style={styles.time}>{time}</Text>
+                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.description} numberOfLines={2}>{description}</Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.editButton} onPress={onEdit}>
+                        <FontAwesome name="pencil" size={24} color={COLORS.white} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.removeButton} onPress={onRemove}>
+                        <FontAwesome name="trash" size={24} color={COLORS.white} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    };
 
     useFocusEffect(
         useCallback(() => {
@@ -47,7 +54,7 @@ const OwnTripCombo = ({ navigation }) => {
 
                         setTimeline(updatedData);
                         setSelectedIndex(null);
-                        await AsyncStorage.removeItem('selectedOwnTrip')
+                        await AsyncStorage.removeItem('selectedOwnTrip');
                     }
                 } catch (error) {
                     console.log(error);
@@ -61,6 +68,11 @@ const OwnTripCombo = ({ navigation }) => {
     const handleEdit = (index) => {
         setSelectedIndex(index);
         navigation.navigate('OwnTripEdit');
+    };
+
+    const handleRemove = (index) => {
+        const updatedTimeline = timeline.filter((_, i) => i !== index);
+        setTimeline(updatedTimeline);
     };
 
     return (
@@ -88,8 +100,10 @@ const OwnTripCombo = ({ navigation }) => {
                                 name={_.name}
                                 description={_.description}
                                 time={_.time}
-                                isLast={index === timelineData.length - 1}
-                                onEdit={() => handleEdit(index)} />
+                                isLast={index === timeline.length - 1}
+                                onEdit={() => handleEdit(index)}
+                                onRemove={() => handleRemove(index)}
+                            />
                         </View>
                     ))}
 
@@ -101,6 +115,7 @@ const OwnTripCombo = ({ navigation }) => {
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
@@ -201,7 +216,21 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontSize: SIZES.title,
         fontWeight: 'bold'
-    }
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    removeButton: {
+        backgroundColor: COLORS.red,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+    },
 });
 
 export default OwnTripCombo;

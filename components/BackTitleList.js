@@ -5,8 +5,10 @@ import { Image } from 'react-native-elements'
 import SIZES from '../constants/fontsize'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import COLORS from '../constants/color'
+import { useNavigation } from '@react-navigation/native'
 
 const BackTitleList = ({ callBack }) => {
+    const navigation = useNavigation()
     return (
         <View style={styles.flexContainer}>
             <TouchableOpacity onPress={callBack} activeOpacity={0.8}>
@@ -14,7 +16,7 @@ const BackTitleList = ({ callBack }) => {
             </TouchableOpacity>
 
             <View style={styles.headerIcon}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Ionicons name="list" size={35} color={COLORS.primary} />
                 </TouchableOpacity>
             </View>

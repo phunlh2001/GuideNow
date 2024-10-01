@@ -1,25 +1,31 @@
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTab from './components/BottomTab';
-import HotTrending from './screens/HotTrending'
-import OwnTripCreate from './screens/OwnTripCreate';
-import OwnTripFill from './screens/OwnTripFill';
-import OwnTripCombo from './screens/OwnTripCombo';
-import OwnTripEdit from './screens/OwnTripEdit';
+import HistoryTour from './screens/HistoryTour';
+import HotTrending from './screens/HotTrending';
 import OwnTripBill from './screens/OwnTripBill';
-import OwnTripPromotion from './screens/OwnTripPromotion';
 import OwnTripChooseCombo from './screens/OwnTripChooseCombo';
-import OwnTripPayment from './screens/OwnTripPayment'
+import OwnTripCombo from './screens/OwnTripCombo';
 import OwnTripCountDown from './screens/OwnTripCountDown';
+import OwnTripCreate from './screens/OwnTripCreate';
+import OwnTripEdit from './screens/OwnTripEdit';
+import OwnTripFill from './screens/OwnTripFill';
 import OwnTripFound from './screens/OwnTripFound';
+import OwnTripPayment from './screens/OwnTripPayment';
+import OwnTripPromotion from './screens/OwnTripPromotion';
 import OwnTripSuccess from './screens/OwnTripSuccess';
+import Review from './screens/Review';
+import TourGuideDetail from './screens/TourGuideDetail';
+import { Avatar } from 'react-native-elements';
+import DrawerGuide from './components/DrawerGuide';
 
 const Stack = createNativeStackNavigator()
 
 function AfterLogin() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='BottomTab' component={BottomTab} />
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='BottomTab'>
+      <Stack.Screen name="DrawerGuide" component={DrawerGuide} />
       <Stack.Screen name='HotTrending' component={HotTrending} />
       <Stack.Screen name='OwnTripCreate' component={OwnTripCreate} />
       <Stack.Screen name='OwnTripFill' component={OwnTripFill} />
@@ -32,6 +38,8 @@ function AfterLogin() {
       <Stack.Screen name='OwnTripCountDown' component={OwnTripCountDown} />
       <Stack.Screen name='OwnTripFound' component={OwnTripFound} />
       <Stack.Screen name='OwnTripSuccess' component={OwnTripSuccess} />
+      <Stack.Screen name='TourGuideDetail' component={TourGuideDetail} />
+      <Stack.Screen name='Review' component={Review} />
     </Stack.Navigator>
   );
 }

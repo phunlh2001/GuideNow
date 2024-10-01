@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Platform, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import BackTitleList from '../components/BackTitleList'
 import COLORS from '../constants/color'
@@ -7,34 +7,40 @@ import SIZES from '../constants/fontsize'
 const OwnTripFill = ({ navigation }) => {
   const [departureDate, setDepartureDate] = useState(new Date())
   return (
-    <View style={styles.container}>
-      <BackTitleList callBack={() => navigation.goBack()} />
-      <View style={styles.backgroundHeader}>
-        <Text style={styles.insideBackground}>You’re choosing Can Tho</Text>
-      </View>
-      <Text style={styles.fill}>Please fill in the blank to continue</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <BackTitleList callBack={() => navigation.goBack()} />
+          <View style={styles.backgroundHeader}>
+            <Text style={styles.insideBackground}>You’re choosing Can Tho</Text>
+          </View>
+          <Text style={styles.fill}>Please fill in the blank to continue</Text>
 
-      <View>
-        <Text style={styles.title}>Number of participants</Text>
-        <TextInput style={styles.input} placeholder='Type'></TextInput>
-      </View>
+          <View>
+            <Text style={styles.title}>Number of participants</Text>
+            <TextInput style={styles.input} placeholder='Type'></TextInput>
+          </View>
 
-      <View style={{ marginTop: 30 }}>
-        <Text style={styles.title}>Departure date</Text>
-        <TextInput style={styles.input} placeholder='dd/mm/yy'></TextInput>
-      </View>
+          <View style={{ marginTop: 30 }}>
+            <Text style={styles.title}>Departure date</Text>
+            <TextInput style={styles.input} placeholder='dd/mm/yy'></TextInput>
+          </View>
 
-      <View style={{ marginTop: 30 }}>
-        <Text style={styles.title}>Return date</Text>
-        <TextInput style={styles.input} placeholder='dd/mm/yy'></TextInput>
-      </View>
+          <View style={{ marginTop: 30 }}>
+            <Text style={styles.title}>Return date</Text>
+            <TextInput style={styles.input} placeholder='dd/mm/yy'></TextInput>
+          </View>
 
-      <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-        <TouchableOpacity onPress={() => navigation.navigate('OwnTripChooseCombo')} style={styles.confirmBtn}>
-          <Text style={styles.btnText}>Next</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('OwnTripChooseCombo')} style={styles.confirmBtn}>
+              <Text style={styles.btnText}>Next</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -89,9 +95,11 @@ const styles = StyleSheet.create({
     width: 130,
     paddingVertical: 7,
     marginBottom: 50,
+    position: 'absolute',
+    bottom: -150,
     borderRadius: 1000,
     alignSelf: 'center',
-    //position: 'absolute',
+
     justifyContent: 'center',
   },
   btnText: {

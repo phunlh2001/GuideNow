@@ -46,7 +46,10 @@ const LocalTour = ({ navigation }) => {
                 <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
                     <TitleWithButton title={'Hot trend tour'} callBack={navigateToHottrending} />
                 </View>
-                <MyCarousel data={globalData} sizeScreen={SIZESCREEN.FULL} border={false} isShowText={false} callBack={() => navigation.navigate('OwnTripCombo')} />
+                <View style={{ paddingBottom: 100 }}>
+                    <MyCarousel data={globalData} sizeScreen={SIZESCREEN.FULL} border={false} isShowText={false} callBack={() => navigation.navigate('OwnTripCombo')} />
+                </View>
+
             </ScrollView>
         </View>
     )

@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useEffect, useState } from 'react'
+import { Profiler, useEffect, useState } from 'react'
 import {
     Animated,
     Dimensions,
@@ -12,11 +12,14 @@ import COLOS from '../constants/color'
 import HomePage from '../screens/HomePage'
 import AttractiveOffer from '../screens/AttractiveOffer'
 import LocalTour from '../screens/LocalTour'
+import OwnTripPayment from '../screens/OwnTripPayment'
+import OwnTripSuccess from '../screens/OwnTripSuccess'
+import PersonProfile from '../screens/PersonProfile'
 
 const tabs = [
     {
         id: 1,
-        name: 'Home',
+        name: 'HomePage',
         component: HomePage,
         label: 'Home',
         icon: 'home',
@@ -24,11 +27,11 @@ const tabs = [
     },
     {
         id: 2,
-        name: 'Map',
-        component: HomePage,
-        label: 'Map',
-        icon: 'map',
-        inActiveIcon: 'map-outline',
+        name: 'Chat',
+        component: OwnTripPayment,
+        label: 'Chat',
+        icon: 'chatbubble-ellipses',
+        inActiveIcon: 'chatbubble-ellipses-outline',
     },
     {
         id: 6,
@@ -48,8 +51,8 @@ const tabs = [
     },
     {
         id: 4,
-        name: 'Person',
-        component: HomePage,
+        name: 'Profile',
+        component: PersonProfile,
         label: 'Person',
         icon: 'person',
         inActiveIcon: 'person-outline',

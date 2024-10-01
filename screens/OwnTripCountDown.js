@@ -1,21 +1,27 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import COLORS from '../constants/color';
 
 const OwnTripCountDown = ({ navigation }) => {
     const [timeLeft, setTimeLeft] = useState(3);
 
-    useEffect(() => {
-        if (timeLeft > 0) {
-            const interval = setInterval(() => {
-                setTimeLeft(timeLeft - 1);
-            }, 1000);
-            return () => clearInterval(interval)
-        } else if (timeLeft === 0) {
-            navigation.navigate('OwnTripFound');
-        }
+    useFocusEffect(
+        useCallback(() => {
+            if (timeLeft > 0) {
+                const interval = setInterval(() => {
+                    setTimeLeft(timeLeft - 1);
+                }, 1000);
+                return () => clearInterval(interval)
+            } else if (timeLeft === 0) {
+                navigation.navigate('OwnTripFound');
+                setTimeout(() => {
+                    setTimeLeft(3)
+                }, 1000);
+            }
 
-    }, [timeLeft]);
+        }, [timeLeft]))
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -24,7 +30,7 @@ const OwnTripCountDown = ({ navigation }) => {
     };
 
     return (
-        <LinearGradient colors={['#3BD655', '#1A9244', '#0F4434']} style={styles.container}>
+        <LinearGradient colors={[COLORS.brightGreen, COLORS.deepGreen, COLORS.hunterGreen]} style={styles.container}>
             <View style={styles.circle}>
                 <Text style={styles.timeText}>{formatTime(timeLeft)}</Text>
                 <Text style={styles.infoText}>Please wait for the process to complete</Text>

@@ -40,8 +40,6 @@ const OwnTripEdit = ({ navigation }) => {
                 <HeaderOwnTrip title={'Change place'} />
             </View>
             <ScrollView>
-
-
                 {options.map((option, index) => (
                     <TouchableOpacity
                         key={index}

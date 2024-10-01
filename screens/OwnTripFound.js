@@ -5,6 +5,7 @@ import { Image } from 'react-native-elements'
 import BackTitleList from '../components/BackTitleList'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const OwnTripFound = ({ navigation }) => {
     const [departureDate, setDepartureDate] = useState(new Date())
@@ -23,8 +24,8 @@ const OwnTripFound = ({ navigation }) => {
             <View style={styles.itemContainer}>
                 <View style={{ padding: 10, alignSelf: 'center' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('OwnTripCombo')}>
-                        <Image source={{ uri: 'https://www.google.com/imgres?q=cat%20meme&imgurl=https%3A%2F%2Fi.pinimg.com%2F564x%2F9d%2F4a%2F49%2F9d4a49b2b2b9392d3f844c4dbcff52d6.jpg&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Fcute--1337074887148041%2F&docid=SNzb5HBqkxFxQM&tbnid=PPbnUXw4HwW5mM&vet=12ahUKEwia-b-70uOIAxVa4TgGHfe6AFoQM3oECBkQAA..i&w=513&h=640&hcb=2&ved=2ahUKEwia-b-70uOIAxVa4TgGHfe6AFoQM3oECBkQAA' }}
-                            style={{ width: 250, height: 250, borderRadius: 1000, alignSelf: 'center' }}
+                        <Image source={{ uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg' }}
+                            style={{ width: 250, height: 250, borderRadius: 1000, alignSelf: 'center', objectFit: 'cover' }}
                         />
                         <Text style={styles.headerName}>Name</Text>
                         <View style={styles.ratingContainer}>
@@ -35,6 +36,10 @@ const OwnTripFound = ({ navigation }) => {
                             <Text style={styles.status}>Male</Text>
                             <Text style={styles.status}>Good</Text>
                         </View>
+                        <TouchableOpacity style={{ alignSelf: 'center', marginTop: 20 }}
+                            onPress={() => navigation.navigate('TourGuideDetail')}>
+                            <Ionicons name='chevron-down' size={30} color={COLORS.darkGreen} />
+                        </TouchableOpacity>
                     </TouchableOpacity>
                 </View>
             </View>

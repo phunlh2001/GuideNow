@@ -22,9 +22,9 @@ const OwnTripPromotion = ({ navigation }) => {
 
     const handleConfirm = async () => {
         if (selected !== null) {
-            const selectedOption = options[selected];
+            const selectedPromotion = options[selected];
             try {
-                await AsyncStorage.setItem('selectedOwnTrip', JSON.stringify(selectedOption));
+                await AsyncStorage.setItem('selectedPromotion', JSON.stringify(selectedPromotion));
                 navigation.goBack();
             } catch (error) {
                 console.log(error);

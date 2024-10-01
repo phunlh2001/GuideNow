@@ -1,10 +1,10 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, Touchable, View } from 'react-native'
 import FlexContent from '../components/FlexContent'
-import MyCarousel from '../components/MyCarousel'
-import { SIZESCREEN } from '../constants/base'
 import SIZES from '../constants/fontsize'
-import { attractiveOfferData, globalData } from '../sampleData/data'
+import { globalData } from '../sampleData/data'
+import { Image } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const AttractiveOffer = () => {
     return (
@@ -18,9 +18,10 @@ const AttractiveOffer = () => {
                 <Text style={styles.title}>Golden Hour</Text> */}
                 <View style={{ marginTop: 20, marginBottom: 150 }}>
                     {globalData.map((_, index) => (
-                        <View key={index}>
-                            <FlexContent data={_} titleBtn={'Get'} />
-                        </View>
+                        <TouchableOpacity activeOpacity={0.6} key={index}>
+                            <Image source={{ uri: `${_.url}` }} style={styles.image} />
+                            <Text style={[styles.title, { textAlign: 'center', marginBottom: 40 }]}>{_.title}</Text>
+                        </TouchableOpacity>
                     ))}
                 </View>
             </ScrollView>
@@ -40,4 +41,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 20
     },
+    image: {
+        width: '100%',
+        height: 200,
+        borderRadius: 10,
+    }
 })
