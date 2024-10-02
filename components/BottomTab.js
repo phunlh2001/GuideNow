@@ -15,6 +15,7 @@ import LocalTour from '../screens/LocalTour'
 import OwnTripPayment from '../screens/OwnTripPayment'
 import OwnTripSuccess from '../screens/OwnTripSuccess'
 import PersonProfile from '../screens/PersonProfile'
+import Chat from '../screens/Chat'
 
 const tabs = [
     {
@@ -28,7 +29,7 @@ const tabs = [
     {
         id: 2,
         name: 'Chat',
-        component: OwnTripPayment,
+        component: Chat,
         label: 'Chat',
         icon: 'chatbubble-ellipses',
         inActiveIcon: 'chatbubble-ellipses-outline',

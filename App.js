@@ -19,6 +19,15 @@ import Review from './screens/Review';
 import TourGuideDetail from './screens/TourGuideDetail';
 import { Avatar } from 'react-native-elements';
 import DrawerGuide from './components/DrawerGuide';
+import LoginAndSecurity from './screens/LoginAndSecurity';
+import NotificationSetting from './screens/NotificationSetting';
+import TermOfUse from './screens/TermOfUse';
+import Policy from './screens/Policy';
+import HowItWork from './screens/HowItWork';
+import EnterPassword from './screens/EnterPassword';
+import ResetPassword from './screens/ResetPassword';
+import GeneralInfomation from './screens/GeneralInfotmation';
+import Chat from './screens/Chat';
 
 const Stack = createNativeStackNavigator()
 
@@ -40,6 +49,15 @@ function AfterLogin() {
       <Stack.Screen name='OwnTripSuccess' component={OwnTripSuccess} />
       <Stack.Screen name='TourGuideDetail' component={TourGuideDetail} />
       <Stack.Screen name='Review' component={Review} />
+      <Stack.Screen name='LoginAndSecurity' component={LoginAndSecurity} />
+      <Stack.Screen name='NotificationSetting' component={NotificationSetting} />
+      <Stack.Screen name='TermOfUse' component={TermOfUse} />
+      <Stack.Screen name='Policy' component={Policy} />
+      <Stack.Screen name='HowItWork' component={HowItWork} />
+      <Stack.Screen name='EnterPassword' component={EnterPassword} />
+      <Stack.Screen name='ResetPassword' component={ResetPassword} />
+      <Stack.Screen name='GeneralInfomation' component={GeneralInfomation} />
+      <Stack.Screen name='Chat' component={Chat} />
     </Stack.Navigator>
   );
 }

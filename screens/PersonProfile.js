@@ -9,7 +9,7 @@ const PersonProfile = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <HomeHeader />
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.avatarContainer}>
                     <View style={styles.avatarCircle}>
                         <TouchableOpacity style={styles.cameraButton}>
@@ -51,11 +51,11 @@ const PersonProfile = ({ navigation }) => {
                         <Text style={styles.menuText}>Offers</Text>
                         <FontAwesome name="chevron-right" size={20} color={COLORS.darkGreen} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
+                    <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('LoginAndSecurity')}>
                         <Text style={styles.menuText}>Login and security</Text>
                         <FontAwesome name="chevron-right" size={20} color={COLORS.darkGreen} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
+                    <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('NotificationSetting')}>
                         <Text style={styles.menuText}>Notification settings</Text>
                         <FontAwesome name="chevron-right" size={20} color={COLORS.darkGreen} />
                     </TouchableOpacity>
@@ -74,7 +74,7 @@ const PersonProfile = ({ navigation }) => {
                         <Text style={styles.menuText}>Help center</Text>
                         <FontAwesome name="chevron-right" size={20} color={COLORS.darkGreen} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
+                    <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('GeneralInfomation')}>
                         <Text style={styles.menuText}>General infomation</Text>
                         <FontAwesome name="chevron-right" size={20} color={COLORS.darkGreen} />
                     </TouchableOpacity>
@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
-        paddingHorizontal: 20,
         paddingTop: 30
     },
     avatarContainer: {

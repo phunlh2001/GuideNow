@@ -16,7 +16,7 @@ const BackTitleList = ({ callBack }) => {
             </TouchableOpacity>
 
             <View style={styles.headerIcon}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <TouchableOpacity >
                     <Ionicons name="list" size={35} color={COLORS.primary} />
                 </TouchableOpacity>
             </View>
