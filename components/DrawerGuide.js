@@ -6,6 +6,7 @@ import COLORS from '../constants/color';
 import SIZES from '../constants/fontsize';
 import HistoryTour from '../screens/HistoryTour';
 import BottomTab from './BottomTab';
+import OwnTripFill from '../screens/OwnTripFill'
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();

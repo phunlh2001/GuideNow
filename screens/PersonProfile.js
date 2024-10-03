@@ -1,21 +1,31 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import COLORS from '../constants/color';
 import HomeHeader from '../components/HomeHeader'
 import SIZES from '../constants/fontsize';
 import { ScrollView } from 'react-native-gesture-handler';
+import { renderModal, uploadImage } from '../components/ImageHandle'
+
 const PersonProfile = ({ navigation }) => {
+    const [openModal, setOpenModal] = useState(false)
+    const [image, setImage] = useState(null)
+
+    const setImageResult = async (preImage) => {
+        setOpenModal(false)
+        setImage(preImage.assets[0].base64)
+    }
     return (
         <View style={styles.container}>
+            {renderModal(openModal, setOpenModal, uploadImage, setImageResult)}
             <HomeHeader />
             <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.avatarContainer}>
-                    <View style={styles.avatarCircle}>
-                        <TouchableOpacity style={styles.cameraButton}>
+                    <ImageBackground source={{ uri: `data:image/png;base64,${image}` }} borderRadius={1000} style={styles.avatarCircle}>
+                        <TouchableOpacity style={styles.cameraButton} onPress={() => setOpenModal(true)}>
                             <FontAwesome name="camera" size={20} color={COLORS.white} />
                         </TouchableOpacity>
-                    </View>
+                    </ImageBackground>
                 </View>
 
                 <Text style={styles.name}>Nguyen Van A</Text>

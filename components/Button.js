@@ -1,5 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import SIZES from '../constants/fontsize'
+import COLORS from '../constants/color'
 
 export default function Button({
     title,

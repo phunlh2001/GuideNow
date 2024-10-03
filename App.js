@@ -1,8 +1,6 @@
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomTab from './components/BottomTab';
-import HistoryTour from './screens/HistoryTour';
 import HotTrending from './screens/HotTrending';
 import OwnTripBill from './screens/OwnTripBill';
 import OwnTripChooseCombo from './screens/OwnTripChooseCombo';
@@ -17,7 +15,6 @@ import OwnTripPromotion from './screens/OwnTripPromotion';
 import OwnTripSuccess from './screens/OwnTripSuccess';
 import Review from './screens/Review';
 import TourGuideDetail from './screens/TourGuideDetail';
-import { Avatar } from 'react-native-elements';
 import DrawerGuide from './components/DrawerGuide';
 import LoginAndSecurity from './screens/LoginAndSecurity';
 import NotificationSetting from './screens/NotificationSetting';
