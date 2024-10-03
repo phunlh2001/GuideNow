@@ -8,7 +8,7 @@ const COLORS = {
     gray: '#9DA3B4',
     gray2: '#C5CCD6',
     light: '#FBF9F1',
-    lightgreen: '#EBFDF2',
+    lightgreen: '#D8FFAC',
     red: '#FF0000',
     blue: '#6895D2',
     tag: '#4CCD99',
