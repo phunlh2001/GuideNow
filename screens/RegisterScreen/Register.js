@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import {
     Image,
     StyleSheet,
@@ -7,62 +8,93 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import iconLogo from '../../assets/blueLogo.png'
-import { useNavigation } from '@react-navigation/native'
+import CoreButton from '../../components/CoreButton.js'
+import { observer } from 'mobx-react'
+import { registrationStore } from '../../mobx/registerStore.js'
 
-export default function Register({ onNext }) {
+const Register = observer(({ goNext }) => {
     const navigation = useNavigation()
+    const [isValid, setIsValid] = useState(false)
+
+    useEffect(() => {
+        setIsValid(registrationStore.validateRegister())
+    }, [
+        registrationStore.userName,
+        registrationStore.password,
+        registrationStore.rePassword,
+    ])
+
+    const handleInputChange = (field, value) => {
+        registrationStore.setField(field, value)
+    }
 
     return (
         <View style={styles.container}>
-            {/* Logo */}
             <View style={styles.boxLogo}>
                 <Image source={iconLogo} style={styles.logo} />
-                <Text style={styles.logoTitle}>Guild now</Text>
+                <Text style={styles.logoTitle}>GuideNow</Text>
             </View>
 
-            {/* Title */}
             <View style={styles.boxTitle}>
                 <Text style={styles.title}>Register</Text>
-                <Text style={styles.subTitle}>Please fill in the blank</Text>
+                <Text style={styles.subTitle}>Please fill in the blanks</Text>
             </View>
 
-            {/* Username Input */}
             <TextInput
                 style={styles.input}
                 placeholder="UserName"
                 placeholderTextColor="#347E5B"
+                value={registrationStore.userName}
+                onChangeText={(text) => handleInputChange('userName', text)}
             />
-
-            {/* Password Input */}
             <TextInput
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry
                 placeholderTextColor="#347E5B"
+                value={registrationStore.password}
+                onChangeText={(text) => handleInputChange('password', text)}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Re-enter password"
                 secureTextEntry
                 placeholderTextColor="#347E5B"
+                value={registrationStore.rePassword}
+                onChangeText={(text) => handleInputChange('rePassword', text)}
             />
-            {/* Login Button */}
-            <TouchableOpacity style={styles.loginButton} onPress={onNext}>
-                <Text style={styles.loginButtonText}>Continue</Text>
-            </TouchableOpacity>
+
+            <View style={styles.boxButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                    <View style={styles.backButton}>
+                        <Ionicons
+                            name="caret-back-outline"
+                            color="#347E5B"
+                            size={32}
+                        />
+                        <Text style={styles.textSpaceMove}>Back</Text>
+                    </View>
+                </TouchableOpacity>
+                <View style={{ width: 200, alignSelf: 'center' }}>
+                    <CoreButton
+                        title={'Continue'}
+                        callBack={() => goNext(1)}
+                        disabled={!isValid}
+                    />
+                </View>
+            </View>
+
             <View style={styles.moveRegister}>
-                <Text style={styles.moveText}>You have account?</Text>
-                <TouchableOpacity
-                    style={styles.spaceMove}
-                    onPress={() => navigation.navigate('login')}
-                >
+                <Text style={styles.moveText}>You have an account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('login')}>
                     <Text style={styles.textSpaceMove}>Sign In</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {
@@ -72,7 +104,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         gap: 5,
-        paddingTop: 30,
         paddingBottom: 30,
     },
     boxLogo: {
@@ -80,7 +111,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         gap: 2,
-        marginBottom: 50,
     },
     logoTitle: {
         color: '#347E5B',
@@ -159,11 +189,23 @@ const styles = StyleSheet.create({
     boxTitle: {
         width: '100%',
         flexDirection: 'column',
-        marginBottom: 80,
+        marginBottom: 20,
         alignItems: 'center',
     },
     subTitle: {
         fontSize: 15,
         color: '#A9A9A9',
     },
+    backButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 3,
+    },
+    boxButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
 })
+export default Register

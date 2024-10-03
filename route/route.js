@@ -1,6 +1,6 @@
 import Login from '../screens/login/login.js'
 import OpenScreen from '../screens/OpenScreen/OpenScreen.js'
-import { RegisterSteps } from '../screens/registerStep/page.js'
+import RegisterSteps from '../screens/registerStep/page.js'
 
 export const listRoute = [
     {

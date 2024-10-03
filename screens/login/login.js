@@ -10,6 +10,7 @@ import {
 import iconLogo from '../../assets/blueLogo.png'
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from 'react-native-check-box'
+import CoreButton from '../../components/CoreButton.js'
 
 export default function Login() {
     const navigation = useNavigation()
@@ -19,7 +20,7 @@ export default function Login() {
             {/* Logo */}
             <View style={styles.boxLogo}>
                 <Image source={iconLogo} style={styles.logo} />
-                <Text style={styles.logoTitle}>Guild now</Text>
+                <Text style={styles.logoTitle}>GuideNow</Text>
             </View>
 
             {/* Title */}
@@ -59,9 +60,12 @@ export default function Login() {
             </View>
 
             {/* Login Button */}
-            <TouchableOpacity style={styles.loginButton}>
-                <Text style={styles.loginButtonText}>Login</Text>
-            </TouchableOpacity>
+            <View style={{ width: 300, alignSelf: 'center', marginBottom: 10 }}>
+                <CoreButton
+                    callBack={() => console.log('xinchao')}
+                    title={'Login'}
+                />
+            </View>
             <View style={styles.moveRegister}>
                 <Text style={styles.moveText}>You don't have account?</Text>
                 <TouchableOpacity
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         gap: 5,
-        paddingTop: 30,
+        paddingTop: 60,
         paddingBottom: 30,
     },
     boxLogo: {
@@ -91,7 +95,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         gap: 2,
-        marginBottom: 50,
     },
     logoTitle: {
         color: '#347E5B',
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
     boxTitle: {
         width: '100%',
         flexDirection: 'column',
-        marginBottom: 80,
+        marginBottom: 20,
         alignItems: 'center',
     },
     subTitle: {

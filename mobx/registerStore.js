@@ -1,37 +1,41 @@
-import { action, makeAutoObservable, observable } from 'mobx'
-import { createContext } from 'react'
+import { makeAutoObservable } from 'mobx'
 
-class regsiterSlice {
-    listRegister = {}
+class RegistrationStore {
+    userName = ''
+    password = ''
+    rePassword = ''
+    name = ''
+    birthday = ''
+    sex = ''
+    email = ''
+    phoneNumber = ''
 
     constructor() {
-        makeAutoObservable(this, {
-            listRegister: observable,
-            setRegisterField: action,
-        })
+        makeAutoObservable(this)
     }
 
-    // * Store all of field of phase one of register
-    setRegisterFirstPhase(userName, password, repassword) {
-        this.listRegister.userName = userName
-        this.listRegister.password = password
-        this.listRegister.repassword = repassword
+    setField(field, value) {
+        this[field] = value
     }
 
-    // * Check if full of field in phase one is filled
-    get isPhaseOneValid() {
-        const listField = this.listRegister
-        for (let index in listField) {
-            if (
-                listField[index] === '' ||
-                !listField[index] ||
-                listField[index] === null
-            ) {
-                return false
-            }
-        }
-        return true
+    validateRegister() {
+        return (
+            this.userName.trim() &&
+            this.password.trim() &&
+            this.rePassword.trim() &&
+            this.password === this.rePassword
+        )
+    }
+
+    validateGeneralInfo() {
+        return (
+            this.name.trim() &&
+            this.birthday &&
+            this.sex.trim() &&
+            this.email.trim() &&
+            this.phoneNumber.trim()
+        )
     }
 }
 
-const registerAction = createContext(new regsiterSlice())
+export const registrationStore = new RegistrationStore()

@@ -12,7 +12,7 @@ const OpenScreen = () => {
                 style={styles.actionIcon}
             >
                 <Image source={iconImage} style={styles.image} />
-                <Text style={styles.text}>Guild now</Text>
+                <Text style={styles.text}>GuidedNow</Text>
             </TouchableOpacity>
         </View>
     )

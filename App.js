@@ -5,7 +5,7 @@ const Stack = createNativeStackNavigator()
 export default function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="openScreen">
+            <Stack.Navigator initialRouteName="openscreen">
                 {listRoute.map((val) => (
                     <Stack.Screen
                         key={val.id}
