@@ -1,11 +1,18 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import BackTitleList from '../components/BackTitleList';
-import HeaderOwnTrip from '../components/HeaderOwnTrip';
-import COLORS from '../constants/color';
-import SIZES from '../constants/fontsize';
-import { bankData } from '../sampleData/data';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useState } from 'react'
+import {
+    FlatList,
+    Image,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
+import BackTitleList from '../components/BackTitleList'
+import HeaderOwnTrip from '../components/HeaderOwnTrip'
+import COLORS from '../constants/color'
+import SIZES from '../constants/fontsize'
+import { bankData } from '../sampleData/data'
 
 const OwnTripPayment = ({ navigation }) => {
     const [activeBank, setActiveBank] = useState(null)
@@ -16,24 +23,37 @@ const OwnTripPayment = ({ navigation }) => {
 
     const handleConfirm = async () => {
         if (activeBank !== null) {
-            const selectedBank = bankData.find(n => n.name === activeBank);
+            const selectedBank = bankData.find((n) => n.name === activeBank)
             try {
-                await AsyncStorage.setItem('selectedBank', JSON.stringify(selectedBank));
-                navigation.goBack();
+                await AsyncStorage.setItem(
+                    'selectedBank',
+                    JSON.stringify(selectedBank),
+                )
+                navigation.goBack()
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
         }
     }
 
     const BankCard = ({ name, logo, onPress }) => (
         <TouchableOpacity style={styles.bankContainer} onPress={onPress}>
-            <View style={[styles.logoContainer, { borderColor: activeBank === name ? COLORS.darkGreen : COLORS.white }]}>
+            <View
+                style={[
+                    styles.logoContainer,
+                    {
+                        borderColor:
+                            activeBank === name
+                                ? COLORS.darkGreen
+                                : COLORS.white,
+                    },
+                ]}
+            >
                 <Image source={{ uri: logo }} style={styles.bankLogo} />
             </View>
             <Text style={styles.bankName}>{name}</Text>
         </TouchableOpacity>
-    );
+    )
 
     const renderBank = ({ item }) => (
         <BankCard
@@ -41,14 +61,12 @@ const OwnTripPayment = ({ navigation }) => {
             logo={item.url}
             onPress={() => handleActive(item.name)}
         />
-    );
+    )
 
     return (
         <View style={styles.container}>
             <BackTitleList callBack={() => navigation.goBack()} />
-
-            <HeaderOwnTrip title={'Payment method'} />
-
+            <HeaderOwnTrip title="Payment method" />
             <Text style={styles.title}>Choose your bank account</Text>
             <FlatList
                 data={bankData}
@@ -58,29 +76,33 @@ const OwnTripPayment = ({ navigation }) => {
                 contentContainerStyle={styles.bankList}
             />
             <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <TouchableOpacity onPress={handleConfirm} style={styles.confirmBtn}>
+                <TouchableOpacity
+                    onPress={handleConfirm}
+                    style={styles.confirmBtn}
+                >
                     <Text style={styles.btnText}>Confirm</Text>
                 </TouchableOpacity>
             </View>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: COLORS.white,
-        paddingTop: 40
+        paddingTop: 40,
     },
     title: {
         fontSize: 24,
         marginVertical: 60,
         color: COLORS.deepGreen,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     bankList: {
         justifyContent: 'center',
+        right: 10,
     },
     bankContainer: {
         width: 100,
@@ -100,7 +122,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 2
+        borderWidth: 2,
     },
     active: {
         backgroundColor: COLORS.accent,
@@ -114,25 +136,23 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textAlign: 'center',
         fontWeight: 'bold',
-        marginTop: 10
+        marginTop: 10,
     },
     confirmBtn: {
         backgroundColor: COLORS.darkGreen,
-        width: 120,
+        width: 100,
         paddingVertical: 7,
-        marginBottom: 50,
         borderRadius: 1000,
         alignSelf: 'center',
-        justifyContent: 'flex-end',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 100
+        bottom: 50,
     },
     btnText: {
         color: COLORS.white,
         fontSize: SIZES.title,
-        fontWeight: 'bold'
-    }
-});
+        fontWeight: 'bold',
+    },
+})
 
-export default OwnTripPayment;
+export default OwnTripPayment

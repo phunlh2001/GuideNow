@@ -1,15 +1,21 @@
-import React, { useCallback, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import BackTitleList from '../components/BackTitleList';
-import HeaderOwnTrip from '../components/HeaderOwnTrip';
-import COLORS from '../constants/color';
-import SIZES from '../constants/fontsize';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
+import React, { useCallback, useState } from 'react'
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    Image,
+} from 'react-native'
+import BackTitleList from '../components/BackTitleList'
+import HeaderOwnTrip from '../components/HeaderOwnTrip'
+import COLORS from '../constants/color'
+import SIZES from '../constants/fontsize'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+import { FontAwesome } from '@expo/vector-icons'
 
 const OwnTripBill = ({ navigation }) => {
-
     const [bank, setBank] = useState(null)
     const [promotionCode, setPromotionCode] = useState(null)
 
@@ -17,27 +23,30 @@ const OwnTripBill = ({ navigation }) => {
         useCallback(() => {
             const getDataFromStorage = async () => {
                 try {
-                    const storedItem = await AsyncStorage.getItem('selectedBank');
+                    const storedItem = await AsyncStorage.getItem(
+                        'selectedBank',
+                    )
                     if (storedItem !== null) {
-                        const parsedItem = JSON.parse(storedItem);
-                        setBank(parsedItem);
-                        await AsyncStorage.removeItem('selectedBank');
+                        const parsedItem = JSON.parse(storedItem)
+                        setBank(parsedItem)
+                        await AsyncStorage.removeItem('selectedBank')
                     }
-                    const storedItemPromotion = await AsyncStorage.getItem('selectedPromotion');
-                    console.log(storedItemPromotion)
+                    const storedItemPromotion = await AsyncStorage.getItem(
+                        'selectedPromotion',
+                    )
                     if (storedItemPromotion !== null) {
-                        const parsedItem = JSON.parse(storedItemPromotion);
-                        setPromotionCode(parsedItem);
-                        await AsyncStorage.removeItem('selectedPromotion');
+                        const parsedItem = JSON.parse(storedItemPromotion)
+                        setPromotionCode(parsedItem)
+                        await AsyncStorage.removeItem('selectedPromotion')
                     }
                 } catch (error) {
-                    console.log(error);
+                    console.log(error)
                 }
-            };
+            }
 
-            getDataFromStorage();
-        })
-    );
+            getDataFromStorage()
+        }),
+    )
 
     const onEdit = async (type) => {
         if (type === 'bank') {
@@ -49,7 +58,6 @@ const OwnTripBill = ({ navigation }) => {
             setPromotionCode(null)
             navigation.navigate('OwnTripPromotion')
         }
-
     }
 
     return (
@@ -61,34 +69,54 @@ const OwnTripBill = ({ navigation }) => {
             <View style={styles.topSection}>
                 <View style={styles.imageBox}>
                     <Image
-                        source={{ uri: 'https://s3-alpha-sig.figma.com/img/a2d8/786d/262873bd9ea8b592f4f116aed430692b?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=frVHxOLneYmI3xBfyUEvlyrXgMv4QdoOTYq9rR0Ib9zIFyBl3yVp-jKiITAarStDjFCVJPxJDMvGh3UNRL0tekzZM4k-pHm6nslmF2~XJ0O~x8O08xw~cjwFCgApNpblUlrJNBwGhF9cbkqS3w2VRUalot5S1VISMTB~xO3fMpWJ4NOUjER0ikDAaCsOlyDP0QxLTb~I3bh31ZRR8hzk~gO9AFKYvA4Q9-YKJNxt2vQNdINHd6TgWwpxstkJ4YEODT3R64VhDZzaEvqkUP0aJjHy5lprXOmWNwC4~ZuyzyFWA5Si9W3JbNRCMESMrBND3zjkw0WGg2OIayWN4p9cTA__' }}
+                        source={{
+                            uri: 'https://s3-alpha-sig.figma.com/img/a2d8/786d/262873bd9ea8b592f4f116aed430692b?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=frVHxOLneYmI3xBfyUEvlyrXgMv4QdoOTYq9rR0Ib9zIFyBl3yVp-jKiITAarStDjFCVJPxJDMvGh3UNRL0tekzZM4k-pHm6nslmF2~XJ0O~x8O08xw~cjwFCgApNpblUlrJNBwGhF9cbkqS3w2VRUalot5S1VISMTB~xO3fMpWJ4NOUjER0ikDAaCsOlyDP0QxLTb~I3bh31ZRR8hzk~gO9AFKYvA4Q9-YKJNxt2vQNdINHd6TgWwpxstkJ4YEODT3R64VhDZzaEvqkUP0aJjHy5lprXOmWNwC4~ZuyzyFWA5Si9W3JbNRCMESMrBND3zjkw0WGg2OIayWN4p9cTA__',
+                        }}
                         style={styles.image}
                     />
                     <View style={styles.ticketInfo}>
-                        <Text style={styles.ticketLocation}>Cần Thơ #232848</Text>
+                        <Text style={styles.ticketLocation}>
+                            Cần Thơ #232848
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.descriptionBox}>
                     <Text style={styles.description}>
-                        Hi hello how're you doing? Some description here about the journey or place.
+                        Hi hello how're you doing? Some description here about
+                        the journey or place.
                     </Text>
                 </View>
             </View>
 
-
-
             <View style={styles.formField}>
                 <Text style={styles.label}>Payment method:</Text>
                 {!bank ? (
-                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('OwnTripPayment')}>
+                    <TouchableOpacity
+                        style={styles.addButton}
+                        onPress={() => navigation.navigate('OwnTripPayment')}
+                    >
                         <Text style={styles.plusIcon}>+</Text>
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }} onPress={() => onEdit('bank')}>
-                        <Image source={{ uri: `${bank.url}` }} style={{ width: 30, height: 30 }} />
-                        <FontAwesome name="pencil" size={24} color={COLORS.darkGreen} />
+                    <TouchableOpacity
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: 10,
+                        }}
+                        onPress={() => onEdit('bank')}
+                    >
+                        <Image
+                            source={{ uri: `${bank.url}` }}
+                            style={{ width: 30, height: 30 }}
+                        />
+                        <FontAwesome
+                            name="pencil"
+                            size={24}
+                            color={COLORS.darkGreen}
+                        />
                     </TouchableOpacity>
-
                 )}
             </View>
 
@@ -118,13 +146,30 @@ const OwnTripBill = ({ navigation }) => {
             <View style={styles.formField}>
                 <Text style={styles.label}>Promotional code:</Text>
                 {!promotionCode ? (
-                    <TouchableOpacity onPress={() => navigation.navigate('OwnTripPromotion')} style={styles.addButton}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('OwnTripPromotion')}
+                        style={styles.addButton}
+                    >
                         <Text style={styles.plusIcon}>+</Text>
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }} onPress={() => onEdit('promotion')}>
-                        <Text style={{ fontWeight: 'bold' }}>{promotionCode.discount}</Text>
-                        <FontAwesome name="pencil" size={24} color={COLORS.darkGreen} />
+                    <TouchableOpacity
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: 10,
+                        }}
+                        onPress={() => onEdit('promotion')}
+                    >
+                        <Text style={{ fontWeight: 'bold' }}>
+                            {promotionCode.discount}
+                        </Text>
+                        <FontAwesome
+                            name="pencil"
+                            size={24}
+                            color={COLORS.darkGreen}
+                        />
                     </TouchableOpacity>
                 )}
             </View>
@@ -134,14 +179,17 @@ const OwnTripBill = ({ navigation }) => {
                 <Text style={styles.priceText}>1.000.000 vnd</Text>
             </View>
 
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <TouchableOpacity onPress={() => navigation.navigate('OwnTripCountDown')} style={styles.confirmBtn}>
+            <View style={{ justifyContent: 'flex-end' }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('OwnTripCountDown')}
+                    style={styles.confirmBtn}
+                >
                     <Text style={styles.btnText}>Confirm</Text>
                 </TouchableOpacity>
             </View>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -153,7 +201,7 @@ const styles = StyleSheet.create({
     topSection: {
         flexDirection: 'row',
         marginBottom: 40,
-        height: 200
+        height: 200,
     },
     imageBox: {
         flex: 2,
@@ -210,7 +258,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         width: 130,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     plusIcon: {
         fontSize: 20,
@@ -219,7 +267,7 @@ const styles = StyleSheet.create({
     priceText: {
         fontSize: 14,
         color: COLORS.black,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     confirmBtn: {
         backgroundColor: COLORS.darkGreen,
@@ -229,13 +277,13 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         alignSelf: 'center',
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     btnText: {
         color: COLORS.white,
         fontSize: SIZES.title,
-        fontWeight: 'bold'
-    }
-});
+        fontWeight: 'bold',
+    },
+})
 
-export default OwnTripBill;
+export default OwnTripBill
