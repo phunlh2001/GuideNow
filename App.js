@@ -1,12 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { listRoute } from './route/route.js'
+import { routes } from './routes'
+
 const Stack = createNativeStackNavigator()
 export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="openscreen">
-                {listRoute.map((val) => (
+                {routes.map((val) => (
                     <Stack.Screen
                         key={val.id}
                         name={val.name}

@@ -2,7 +2,7 @@ import Login from '../screens/Login'
 import OpenScreen from '../screens/OpenScreen'
 import Register from '../screens/register/Register'
 
-export const listRoute = [
+export const routes = [
     {
         id: 1,
         name: 'openscreen',
