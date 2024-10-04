@@ -5,15 +5,13 @@ const Stack = createNativeStackNavigator()
 export default function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="openscreen"
-                options={{ headerShown: false }}
-            >
+            <Stack.Navigator initialRouteName="openscreen">
                 {listRoute.map((val) => (
                     <Stack.Screen
                         key={val.id}
                         name={val.name}
                         component={val.component}
+                        options={{ headerShown: false }}
                     />
                 ))}
             </Stack.Navigator>

@@ -45,7 +45,7 @@ const checkStep = (position, setNewPosition) => {
         case 2:
             return <VerificationScreen goNext={setNewPosition} />
         case 3:
-            return <TakePhoto />
+            return null
     }
 }
 

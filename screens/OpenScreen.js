@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import iconImage from '../../assets/whiteLogo.png'
+import iconImage from '../assets/whiteLogo.png'
 import { useNavigation } from '@react-navigation/native'
 
 const OpenScreen = () => {

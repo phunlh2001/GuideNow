@@ -7,10 +7,10 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
-import iconLogo from '../../assets/blueLogo.png'
+import iconLogo from '../assets/blueLogo.png'
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from 'react-native-check-box'
-import CoreButton from '../components/CoreButton.js'
+import CoreButton from '../components/CoreButton'
 
 export default function Login() {
     const navigation = useNavigation()
