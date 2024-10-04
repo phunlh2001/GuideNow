@@ -14,7 +14,18 @@ import CoreButton from '../../components/CoreButton.js'
 
 export default function Login() {
     const navigation = useNavigation()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const [isRememberPw, setIsRememberPw] = useState(false)
+
+    const handleLogin = () => {
+        if (username === 'nguyen' && password === '2612') {
+            navigation.navigate('hello') //! Đổi tên thành screen mà muốn navigate khi đăng nhập thành công
+        } else {
+            alert('Incorrect username or password')
+        }
+    }
+
     return (
         <View style={styles.container}>
             {/* Logo */}
@@ -36,6 +47,8 @@ export default function Login() {
                 style={styles.input}
                 placeholder="UserName"
                 placeholderTextColor="#347E5B"
+                value={username}
+                onChangeText={setUsername}
             />
 
             {/* Password Input */}
@@ -44,7 +57,10 @@ export default function Login() {
                 placeholder="Password"
                 secureTextEntry
                 placeholderTextColor="#347E5B"
+                value={password}
+                onChangeText={setPassword}
             />
+
             <View style={styles.forgetBox}>
                 <CheckBox
                     style={{ flex: 1, padding: 10 }}
@@ -61,11 +77,9 @@ export default function Login() {
 
             {/* Login Button */}
             <View style={{ width: 300, alignSelf: 'center', marginBottom: 10 }}>
-                <CoreButton
-                    callBack={() => console.log('xinchao')}
-                    title={'Login'}
-                />
+                <CoreButton callBack={handleLogin} title={'Login'} />
             </View>
+
             <View style={styles.moveRegister}>
                 <Text style={styles.moveText}>You don't have account?</Text>
                 <TouchableOpacity
