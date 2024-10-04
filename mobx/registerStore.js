@@ -6,7 +6,6 @@ class RegistrationStore {
     rePassword = ''
     name = ''
     birthday = ''
-    sex = ''
     email = ''
     phoneNumber = ''
     errors = {
@@ -60,8 +59,8 @@ class RegistrationStore {
             this.passwordError = 'Password cannot be empty.'
         } else if (this.password.includes(' ')) {
             this.passwordError = 'Password cannot contain spaces.'
-        } else if (this.password.length < 10) {
-            this.passwordError = 'Password must be at least 10 characters long.'
+        } else if (this.password.length < 6) {
+            this.passwordError = 'Password must be at least 6 characters long.'
         } else {
             this.passwordError = ''
         }
@@ -97,7 +96,6 @@ class RegistrationStore {
         return (
             this.name.trim() &&
             this.birthday &&
-            this.sex.trim() &&
             this.email.trim() &&
             this.phoneNumber.trim()
         )
@@ -109,7 +107,6 @@ class RegistrationStore {
         this.rePassword = ''
         this.name = ''
         this.birthday = ''
-        this.sex = ''
         this.email = ''
         this.phoneNumber = ''
 

@@ -17,7 +17,6 @@ const CameraScreen = () => {
     const takePicture = async () => {
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync()
-            console.log('image after taking', photo.uri)
         }
     }
 

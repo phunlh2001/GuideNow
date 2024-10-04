@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import CoreButton from '../../components/CoreButton.js'
-import VertifyCodeInput from '../../components/VertifyCodeInput.js'
+import CoreButton from '../../../components/CoreButton'
+import VertifyCodeInput from '../../../components/VertifyCodeInput'
 
 const VerificationScreen = ({ goNext }) => {
     const [verificationCode, setVerificationCode] = useState('')

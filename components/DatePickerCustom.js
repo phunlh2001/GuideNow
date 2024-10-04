@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TextInput, StyleSheet } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 const DateInput = ({ placeholder = 'Select Date', onDateChange }) => {

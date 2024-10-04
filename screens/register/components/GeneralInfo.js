@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
-import CoreButton from '../../components/CoreButton.js'
-import DateInput from '../../components/DatePickerCustom.js'
 import { observer } from 'mobx-react'
-import { registrationStore } from '../../mobx/registerStore.js'
+import CoreButton from '../../../components/CoreButton'
+import DateInput from '../../../components/DatePickerCustom'
+import { registrationStore } from '../../../mobx/registerStore'
 
 const GeneralInfo = observer(({ goNext }) => {
     const [isValid, setIsValid] = useState(false)
@@ -37,22 +37,12 @@ const GeneralInfo = observer(({ goNext }) => {
                     value={registrationStore.name}
                     onChangeText={(text) => handleInputChange('name', text)}
                 />
-                <View style={styles.boxSex}>
-                    <DateInput
-                        placeholder="Birthday"
-                        value={registrationStore.birthday}
-                        onDateChange={(date) =>
-                            handleInputChange('birthday', date)
-                        }
-                    />
-                    <TextInput
-                        style={styles.sexInput}
-                        placeholder="Sex"
-                        placeholderTextColor="#347E5B"
-                        value={registrationStore.sex}
-                        onChangeText={(text) => handleInputChange('sex', text)}
-                    />
-                </View>
+                <DateInput
+                    style={styles.input}
+                    placeholder="Birthday"
+                    value={registrationStore.birthday}
+                    onDateChange={(date) => handleInputChange('birthday', date)}
+                />
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
@@ -60,11 +50,11 @@ const GeneralInfo = observer(({ goNext }) => {
                     value={registrationStore.email}
                     onChangeText={(text) => handleInputChange('email', text)}
                 />
-                {registrationStore.emailError ? (
+                {registrationStore.emailError && (
                     <Text style={styles.errorText}>
                         {registrationStore.emailError}
                     </Text>
-                ) : null}
+                )}
                 <TextInput
                     style={styles.input}
                     placeholder="Phone and number"

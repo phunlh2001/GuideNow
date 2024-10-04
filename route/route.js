@@ -1,6 +1,5 @@
-import Login from '../screens/login/login.js'
+import Login from '../screens/Login.js'
 import OpenScreen from '../screens/OpenScreen/OpenScreen.js'
-import RegisterSteps from '../screens/registerStep/page.js'
 
 export const listRoute = [
     {
@@ -16,6 +15,6 @@ export const listRoute = [
     {
         id: 3,
         name: 'register',
-        component: RegisterSteps,
+        component: RegisterWrapper,
     },
 ]

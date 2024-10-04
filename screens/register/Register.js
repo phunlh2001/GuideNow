@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import StepIndicator from 'react-native-step-indicator'
-import TakePhoto from '../TakePhotoAvatar/page.js'
-import VerificationScreen from '../vertifScreen/page.js'
-import GeneralInfo from '../GeneralInfor/page.js'
-import Register from '../RegisterScreen/Register.js'
+import CreateAccount from './components/CreateAccount'
+import GeneralInfo from './components/GeneralInfo'
+import VerificationScreen from './components/Verify'
 
 const labels = [
     'Create account',
@@ -37,7 +36,20 @@ const customStyles = {
     currentStepLabelColor: '#1A9244',
 }
 
-const RegisterSteps = () => {
+const checkStep = (position, setNewPosition) => {
+    switch (position) {
+        case 0:
+            return <CreateAccount goNext={setNewPosition} />
+        case 1:
+            return <GeneralInfo goNext={setNewPosition} />
+        case 2:
+            return <VerificationScreen goNext={setNewPosition} />
+        case 3:
+            return <TakePhoto />
+    }
+}
+
+const Register = () => {
     const [currentPosition, setCurrentPosition] = useState(0)
 
     return (
@@ -51,29 +63,10 @@ const RegisterSteps = () => {
                 stepCount={4}
             />
             <View style={{ height: '100%' }}>
-                {currentPosition === 0 && (
-                    <>
-                        <Register goNext={setCurrentPosition} />
-                    </>
-                )}
-                {currentPosition === 1 && (
-                    <>
-                        <GeneralInfo goNext={setCurrentPosition} />
-                    </>
-                )}
-                {currentPosition === 2 && (
-                    <>
-                        <VerificationScreen goNext={setCurrentPosition} />
-                    </>
-                )}
-                {currentPosition === 4 && (
-                    <>
-                        <TakePhoto />
-                    </>
-                )}
+                {checkStep(currentPosition, setCurrentPosition)}
             </View>
         </View>
     )
 }
 
-export default RegisterSteps
+export default Register

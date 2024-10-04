@@ -9,12 +9,12 @@ import {
     View,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import iconLogo from '../../assets/blueLogo.png'
-import CoreButton from '../../components/CoreButton.js'
 import { observer } from 'mobx-react'
-import { registrationStore } from '../../mobx/registerStore.js'
+import CoreButton from '../../../components/CoreButton'
+import { registrationStore } from '../../../mobx/registerStore'
+import iconLogo from '../../../assets/blueLogo.png'
 
-const Register = observer(({ goNext }) => {
+const CreateAccount = observer(({ goNext }) => {
     const navigation = useNavigation()
     const [isValid, setIsValid] = useState(false)
 
@@ -49,11 +49,11 @@ const Register = observer(({ goNext }) => {
                 value={registrationStore.userName}
                 onChangeText={(text) => handleInputChange('userName', text)}
             />
-            {registrationStore.userNameError ? (
+            {registrationStore.userNameError && (
                 <Text style={styles.errorText}>
                     {registrationStore.userNameError}
                 </Text>
-            ) : null}
+            )}
             <TextInput
                 style={styles.input}
                 placeholder="Password"
@@ -62,11 +62,11 @@ const Register = observer(({ goNext }) => {
                 value={registrationStore.password}
                 onChangeText={(text) => handleInputChange('password', text)}
             />
-            {registrationStore.passwordError ? (
+            {registrationStore.passwordError && (
                 <Text style={styles.errorText}>
                     {registrationStore.passwordError}
                 </Text>
-            ) : null}
+            )}
             <TextInput
                 style={styles.input}
                 placeholder="Re-enter password"
@@ -75,11 +75,11 @@ const Register = observer(({ goNext }) => {
                 value={registrationStore.rePassword}
                 onChangeText={(text) => handleInputChange('rePassword', text)}
             />
-            {registrationStore.errors.rePassword ? (
+            {registrationStore.errors.rePassword && (
                 <Text style={styles.errorText}>
                     {registrationStore.errors.rePassword}
                 </Text>
-            ) : null}
+            )}
 
             <View style={styles.boxButton}>
                 <TouchableOpacity onPress={() => navigation.navigate('login')}>
@@ -229,4 +229,4 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 })
-export default Register
+export default CreateAccount

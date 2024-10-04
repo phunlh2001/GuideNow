@@ -10,7 +10,7 @@ import {
 import iconLogo from '../../assets/blueLogo.png'
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from 'react-native-check-box'
-import CoreButton from '../../components/CoreButton.js'
+import CoreButton from '../components/CoreButton.js'
 
 export default function Login() {
     const navigation = useNavigation()
@@ -20,7 +20,7 @@ export default function Login() {
 
     const handleLogin = () => {
         if (username === 'nguyen' && password === '2612') {
-            navigation.navigate('hello') //! Đổi tên thành screen mà muốn navigate khi đăng nhập thành công
+            navigation.navigate('HomePage')
         } else {
             alert('Incorrect username or password')
         }
