@@ -1,21 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Profiler, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Animated,
     Dimensions,
     Keyboard,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import COLOS from '../constants/color'
-import HomePage from '../screens/HomePage'
 import AttractiveOffer from '../screens/AttractiveOffer'
-import LocalTour from '../screens/LocalTour'
-import OwnTripPayment from '../screens/OwnTripPayment'
-import OwnTripSuccess from '../screens/OwnTripSuccess'
-import PersonProfile from '../screens/PersonProfile'
 import Chat from '../screens/Chat'
+import HomePage from '../screens/HomePage'
+import LocalTour from '../screens/LocalTour'
+import PersonProfile from '../screens/PersonProfile'
 
 const tabs = [
     {
@@ -75,11 +73,6 @@ const TabIcon = ({ isFocused, tabIcon, label, index, isMiddle }) => {
             useNativeDriver: true,
         }).start()
     }
-
-    // useEffect(() => {
-    //     if (isFocused && !isMiddle) translateIcon(-14)
-    //     else translateIcon(0)
-    // }, [index])
 
     return (
         <>
@@ -141,7 +134,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
     }, [])
 
     return (
-        <Animated.View style={[styles.tabBarContainer, { bottom: tabBarBottom }]}>
+        <Animated.View
+            style={[styles.tabBarContainer, { bottom: tabBarBottom }]}
+        >
             <Animated.View style={styles.slidingTabContainer}>
                 <Animated.View
                     style={[styles.slidingTab, { transform: [{ translateX }] }]}
@@ -153,8 +148,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
                     options.tabBarLabel !== undefined
                         ? options.tabBarLabel
                         : options.title !== undefined
-                            ? options.title
-                            : route.name
+                        ? options.title
+                        : route.name
 
                 const isFocused = state.index === index
 
@@ -199,15 +194,16 @@ const TabBar = ({ state, descriptors, navigation }) => {
                                 tabIcon={tabBarIcon}
                                 isFocused={isFocused}
                                 index={state.index}
-                                //label={label}
                                 isMiddle={isMiddle}
                             />
-                        ) : (<TabIcon
-                            tabIcon={tabBarIcon}
-                            isFocused={isFocused}
-                            label={label}
-                            index={state.index}
-                        />)}
+                        ) : (
+                            <TabIcon
+                                tabIcon={tabBarIcon}
+                                isFocused={isFocused}
+                                label={label}
+                                index={state.index}
+                            />
+                        )}
                     </TouchableOpacity>
                 )
             })}
@@ -271,7 +267,7 @@ const styles = StyleSheet.create({
     },
     normalButton: {
         flex: 1,
-        alignItems: "center"
+        alignItems: 'center',
     },
     middleButton: {
         height: 70,
@@ -279,9 +275,9 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         marginBottom: 50,
         backgroundColor: COLOS.white,
-        justifyContent: "center",
+        justifyContent: 'center',
         borderWidth: 3,
         borderColor: COLOS.primary,
-        flex: 0
-    }
+        flex: 0,
+    },
 })
