@@ -25,7 +25,6 @@ const OwnTripFill = ({ navigation }) => {
 
   const onDateChange = (event, selectedDate, type) => {
     const currentDate = selectedDate || inputs[type];
-    console.log(inputs)
     setShowPicker({
       showDeparturePicker: false,
       showReturnPicker: false,

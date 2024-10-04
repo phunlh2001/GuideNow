@@ -23,7 +23,7 @@ const OwnTripFound = ({ navigation }) => {
 
             <View style={styles.itemContainer}>
                 <View style={{ padding: 10, alignSelf: 'center' }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('OwnTripCombo')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('TourGuideDetail')}>
                         <Image source={{ uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg' }}
                             style={{ width: 250, height: 250, borderRadius: 1000, alignSelf: 'center', objectFit: 'cover' }}
                         />
@@ -36,8 +36,7 @@ const OwnTripFound = ({ navigation }) => {
                             <Text style={styles.status}>Male</Text>
                             <Text style={styles.status}>Good</Text>
                         </View>
-                        <TouchableOpacity style={{ alignSelf: 'center', marginTop: 20 }}
-                            onPress={() => navigation.navigate('TourGuideDetail')}>
+                        <TouchableOpacity style={{ alignSelf: 'center', marginTop: 20 }}>
                             <Ionicons name='chevron-down' size={30} color={COLORS.darkGreen} />
                         </TouchableOpacity>
                     </TouchableOpacity>
