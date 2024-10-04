@@ -49,6 +49,11 @@ const Register = observer(({ goNext }) => {
                 value={registrationStore.userName}
                 onChangeText={(text) => handleInputChange('userName', text)}
             />
+            {registrationStore.userNameError ? (
+                <Text style={styles.errorText}>
+                    {registrationStore.userNameError}
+                </Text>
+            ) : null}
             <TextInput
                 style={styles.input}
                 placeholder="Password"
@@ -57,6 +62,11 @@ const Register = observer(({ goNext }) => {
                 value={registrationStore.password}
                 onChangeText={(text) => handleInputChange('password', text)}
             />
+            {registrationStore.passwordError ? (
+                <Text style={styles.errorText}>
+                    {registrationStore.passwordError}
+                </Text>
+            ) : null}
             <TextInput
                 style={styles.input}
                 placeholder="Re-enter password"
@@ -65,6 +75,11 @@ const Register = observer(({ goNext }) => {
                 value={registrationStore.rePassword}
                 onChangeText={(text) => handleInputChange('rePassword', text)}
             />
+            {registrationStore.errors.rePassword ? (
+                <Text style={styles.errorText}>
+                    {registrationStore.errors.rePassword}
+                </Text>
+            ) : null}
 
             <View style={styles.boxButton}>
                 <TouchableOpacity onPress={() => navigation.navigate('login')}>
@@ -205,6 +220,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: -10,
         marginBottom: 10,
     },
 })

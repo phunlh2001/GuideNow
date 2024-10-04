@@ -60,6 +60,11 @@ const GeneralInfo = observer(({ goNext }) => {
                     value={registrationStore.email}
                     onChangeText={(text) => handleInputChange('email', text)}
                 />
+                {registrationStore.emailError ? (
+                    <Text style={styles.errorText}>
+                        {registrationStore.emailError}
+                    </Text>
+                ) : null}
                 <TextInput
                     style={styles.input}
                     placeholder="Phone and number"
@@ -69,6 +74,11 @@ const GeneralInfo = observer(({ goNext }) => {
                         handleInputChange('phoneNumber', text)
                     }
                 />
+                {registrationStore.phoneNumberError ? (
+                    <Text style={styles.errorText}>
+                        {registrationStore.phoneNumberError}
+                    </Text>
+                ) : null}
             </View>
 
             <View style={styles.btn_space}>
@@ -155,6 +165,12 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         gap: 10,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: -10,
+        marginBottom: 10,
     },
 })
 
