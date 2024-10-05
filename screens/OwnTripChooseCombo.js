@@ -1,11 +1,19 @@
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    ScrollView,
+    TouchableOpacity,
+    Dimensions,
+} from 'react-native'
 import React, { useState } from 'react'
 import BackTitleList from '../components/BackTitleList'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
 import { ImageBackground } from 'react-native'
 import { globalData } from '../sampleData/data'
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'
 
 const width = Dimensions.get('screen').width / 2 - 20
 
@@ -18,11 +26,14 @@ const OwnTripChooseCombo = ({ navigation }) => {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ paddingHorizontal: 20 }}>
-
                     <View style={styles.backgroundHeader}>
-                        <Text style={styles.insideBackground}>You’re choosing Can Tho</Text>
+                        <Text style={styles.insideBackground}>
+                            You’re choosing Can Tho
+                        </Text>
                     </View>
-                    <Text style={styles.fill}>Please choose a combo you want</Text>
+                    <Text style={styles.fill}>
+                        Please choose a combo you want
+                    </Text>
                 </View>
 
                 {globalData.map((_, index) => (
@@ -30,25 +41,47 @@ const OwnTripChooseCombo = ({ navigation }) => {
                         <ScrollView
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
-                            style={styles.horizonScroll}>
+                            style={styles.horizonScroll}
+                        >
                             {globalData.map((_, index) => (
-                                <View key={index} style={styles.itemScroll} activeOpacity={0.8}>
-                                    <ImageBackground source={{ uri: `${_.url}` }} resizeMode='cover' style={styles.image}>
-                                    </ImageBackground>
+                                <View
+                                    key={index}
+                                    style={styles.itemScroll}
+                                    activeOpacity={0.8}
+                                >
+                                    <ImageBackground
+                                        source={{ uri: `${_.url}` }}
+                                        resizeMode="cover"
+                                        style={styles.image}
+                                    ></ImageBackground>
                                 </View>
                             ))}
                         </ScrollView>
                         <View style={{ padding: 10 }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('OwnTripCombo')}>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigation.navigate('OwnTripCombo')
+                                }
+                            >
                                 <Text style={styles.headerName}>Name</Text>
                                 <View style={styles.ratingContainer}>
                                     <View style={styles.rating}>
-                                        <Text style={styles.ratingText}>5.0</Text>
-                                        <FontAwesome name="star" size={16} color={COLORS.white} />
+                                        <Text style={styles.ratingText}>
+                                            5.0
+                                        </Text>
+                                        <FontAwesome
+                                            name="star"
+                                            size={16}
+                                            color={COLORS.white}
+                                        />
                                     </View>
                                     <Text style={styles.status}>Good</Text>
                                 </View>
-                                <Text numberOfLines={5}>Hi hello hobm gegkn ngelkn, bkejgb, knwgljeglg. eglbgljwljgrg</Text>
+                                <Text numberOfLines={5}>
+                                    Lorem ipsum dolor sit, amet consectetur
+                                    adipisicing elit. Voluptatem consequuntur a
+                                    quis amet nihil.
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -64,7 +97,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 40,
         flex: 1,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
     },
     backgroundHeader: {
         position: 'relative',
@@ -76,7 +109,7 @@ const styles = StyleSheet.create({
         marginTop: 40,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     insideBackground: {
         fontWeight: 'bold',
@@ -87,17 +120,17 @@ const styles = StyleSheet.create({
     fill: {
         fontSize: SIZES.h1,
         color: COLORS.deepGreen,
-        marginVertical: 20
+        marginVertical: 20,
     },
     title: {
         fontWeight: 'bold',
         color: COLORS.black,
         fontSize: SIZES.title,
-        marginBottom: 10
+        marginBottom: 10,
     },
     horizonScroll: {
         height: 150,
-        marginTop: 20
+        marginTop: 20,
     },
     itemContainer: {
         padding: 20,
@@ -108,19 +141,19 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 5,
         elevation: 10,
-        marginBottom: 40
+        marginBottom: 40,
     },
     itemScroll: {
-        height: "100%",
+        height: '100%',
         width,
         marginRight: 10,
         elevation: 5,
-        borderRadius: 10
+        borderRadius: 10,
     },
     image: {
         flex: 1,
         width: '100%',
-        justifyContent: "flex-end",
+        justifyContent: 'flex-end',
     },
     ratingContainer: {
         flexDirection: 'row',

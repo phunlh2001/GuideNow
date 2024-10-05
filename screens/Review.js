@@ -12,34 +12,64 @@ const Review = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={{ marginBottom: 20 }}>
-                <BackTitleButton callBack={() => navigation.goBack()} title={'Review'} />
+                <BackTitleButton
+                    callBack={() => navigation.goBack()}
+                    title={'Review'}
+                />
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingBottom: 50 }}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{ paddingBottom: 50 }}
+            >
                 {globalData.map((_, index) => (
                     <View key={index} style={styles.reviewContainer}>
                         <View style={styles.headerContainer}>
                             <View>
-                                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+                                <View
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                    }}
+                                >
                                     <Avatar
                                         rounded
                                         source={{
-                                            uri:
-                                                'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg',
+                                            uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg',
                                         }}
                                         size={'medium'}
                                     />
                                     <View>
-                                        <Text style={{ fontSize: SIZES.title, fontWeight: 'bold' }}>Name</Text>
-                                        <Text style={{ fontSize: SIZES.caption }}>14:41 24/08/2024</Text>
+                                        <Text
+                                            style={{
+                                                fontSize: SIZES.title,
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            Name
+                                        </Text>
+                                        <Text
+                                            style={{ fontSize: SIZES.caption }}
+                                        >
+                                            14:41 24/08/2024
+                                        </Text>
                                     </View>
                                 </View>
                             </View>
                             <View>
                                 <View style={styles.ratingContainer}>
                                     <View style={styles.rating}>
-                                        <Text style={styles.ratingText}>5.0</Text>
-                                        <FontAwesome name="star" size={16} color={COLORS.darkGreen} />
+                                        <Text style={styles.ratingText}>
+                                            5.0
+                                        </Text>
+                                        <FontAwesome
+                                            name="star"
+                                            size={16}
+                                            color={COLORS.darkGreen}
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -47,7 +77,9 @@ const Review = ({ navigation }) => {
 
                         <View style={{ marginTop: 30 }}>
                             <Text>
-                                Hi hello hobm gegkn ngelkn, bkejgb, knwgljeglg. eglbgljwljgrg Hi hello hobm gegkn ngelkn, bkejgb, knwgljeglg. eglbgljwljgrg
+                                Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit. Voluptatem consequuntur a quis
+                                amet nihil.
                             </Text>
                         </View>
                     </View>
@@ -64,13 +96,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.white,
         paddingHorizontal: 20,
-        paddingTop: 40
+        paddingTop: 40,
     },
     ratingContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: "center",
-        gap: 10
+        justifyContent: 'center',
+        gap: 10,
     },
     rating: {
         flexDirection: 'row',
@@ -88,7 +120,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
     },
     reviewContainer: {
         shadowColor: COLORS.black,
@@ -100,5 +131,5 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         padding: 20,
         marginHorizontal: 10,
-    }
+    },
 })

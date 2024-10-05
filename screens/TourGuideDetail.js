@@ -15,53 +15,137 @@ const TourGuideDetail = ({ navigation }) => {
                 <BackTitleList callBack={() => navigation.goBack()} />
             </View>
 
-            <View style={{ position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+            <View
+                style={{
+                    position: 'relative',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg' }}
+                    <Image
+                        source={{
+                            uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg',
+                        }}
                         style={styles.image}
                     />
                 </View>
-                <LinearGradient style={styles.linearBackground} colors={[COLORS.deepGreen, COLORS.jadeGreen]}>
-                </LinearGradient>
+                <LinearGradient
+                    style={styles.linearBackground}
+                    colors={[COLORS.deepGreen, COLORS.jadeGreen]}
+                ></LinearGradient>
             </View>
-            <View style={{ marginTop: 100, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: SIZES.h2, fontWeight: 'bold' }}>Tour Guide B</Text>
+            <View
+                style={{
+                    marginTop: 100,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Text style={{ fontSize: SIZES.h2, fontWeight: 'bold' }}>
+                    Tour Guide B
+                </Text>
                 <View style={styles.ratingContainer}>
                     <View style={styles.rating}>
                         <Text style={styles.ratingText}>5.0</Text>
-                        <FontAwesome name="star" size={16} color={COLORS.white} />
+                        <FontAwesome
+                            name="star"
+                            size={16}
+                            color={COLORS.white}
+                        />
                     </View>
                     <Text style={styles.status}>Male</Text>
                     <Text style={styles.status}>Good</Text>
                 </View>
             </View>
-            <View style={{ marginTop: 20, display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', paddingHorizontal: 20 }}>
+            <View
+                style={{
+                    marginTop: 20,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    paddingHorizontal: 20,
+                }}
+            >
                 <View style={styles.line}></View>
-                <Text style={{ width: '60%', textAlign: 'center', fontSize: SIZES.body }}>Hi hello hobm gegkn ngelkn, bkejgb, knwgljeglg. eglbgljwljgrg</Text>
+                <Text
+                    style={{
+                        width: '60%',
+                        textAlign: 'center',
+                        fontSize: SIZES.body,
+                    }}
+                >
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                </Text>
                 <View style={styles.line}></View>
             </View>
 
             <View style={{ paddingHorizontal: 27, marginTop: 40 }}>
-                <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginBottom: 20,
+                    }}
+                >
                     <Text style={styles.title}>Place</Text>
                     <Text style={styles.des}>Ho Chi Minh City</Text>
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginBottom: 20,
+                    }}
+                >
                     <Text style={styles.title}>Time</Text>
-                    <Text style={styles.des}>05/09/2024
-                        7:00 AM - 10:00 PM</Text>
+                    <Text style={styles.des}>
+                        05/09/2024 7:00 AM - 10:00 PM
+                    </Text>
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row', marginBottom: 20 }}>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginBottom: 20,
+                    }}
+                >
                     <Text style={styles.title}>Information</Text>
-                    <Text style={styles.des}>Hi hello hobm gegkn ngelkn, bkejgb, knwgljeglg. eglbgljwljgrg Hi hello hobm gegkn ngelkn, bkejgb, knwgljeglg. eglbgljwljgrg</Text>
+                    <Text style={styles.des}>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing
+                        elit. Voluptatem consequuntur a quis amet nihil.
+                    </Text>
                 </View>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Review')}
-                style={{ marginTop: 40, alignSelf: 'flex-end', marginRight: 20, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 5, justifyContent: 'center' }}>
-                <Text style={{ color: COLORS.emeraldGreen, fontWeight: 'bold', fontSize: SIZES.title }}>Review</Text>
-                <Ionicons name='arrow-forward' size={24} color={COLORS.emeraldGreen} />
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Review')}
+                style={{
+                    marginTop: 40,
+                    alignSelf: 'flex-end',
+                    marginRight: 20,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 5,
+                    justifyContent: 'center',
+                }}
+            >
+                <Text
+                    style={{
+                        color: COLORS.emeraldGreen,
+                        fontWeight: 'bold',
+                        fontSize: SIZES.title,
+                    }}
+                >
+                    Review
+                </Text>
+                <Ionicons
+                    name="arrow-forward"
+                    size={24}
+                    color={COLORS.emeraldGreen}
+                />
             </TouchableOpacity>
-
         </View>
     )
 }
@@ -72,7 +156,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
-        paddingTop: 30
+        paddingTop: 30,
     },
     linearBackground: {
         height: 150,
@@ -92,20 +176,20 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         objectFit: 'cover',
         borderWidth: 1,
-        borderColor: COLORS.white
+        borderColor: COLORS.white,
     },
     imageContainer: {
         position: 'absolute',
         zIndex: 10,
-        bottom: -75
+        bottom: -75,
     },
     ratingContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: "center",
+        justifyContent: 'center',
         marginBottom: 10,
         marginTop: 20,
-        gap: 10
+        gap: 10,
     },
     rating: {
         flexDirection: 'row',
@@ -132,19 +216,19 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 20,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     line: {
         width: 50,
         borderWidth: 1,
-        backgroundColor: COLORS.emeraldGreen
+        backgroundColor: COLORS.emeraldGreen,
     },
     title: {
         fontWeight: 'bold',
         width: '30%',
-        fontSize: SIZES.base
+        fontSize: SIZES.base,
     },
     des: {
-        width: '80%'
-    }
+        width: '70%',
+    },
 })

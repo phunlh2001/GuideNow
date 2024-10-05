@@ -1,25 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import COLORS from '../constants/color';
-import BackTitleButton from '../components/BackTitleButton';
-import SIZES from '../constants/fontsize';
+import React, { useState } from 'react'
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    KeyboardAvoidingView,
+    Platform,
+    Keyboard,
+    TouchableWithoutFeedback,
+} from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
+import COLORS from '../constants/color'
+import BackTitleButton from '../components/BackTitleButton'
+import SIZES from '../constants/fontsize'
 
 const EnterPassword = ({ navigation }) => {
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [isPasswordVisible, setPasswordVisible] = useState(false);
-    const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
+    const [isConfirmPasswordVisible, setConfirmPasswordVisible] =
+        useState(false)
 
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
-                    <BackTitleButton callBack={() => navigation.goBack()} title={'Change password'} />
+                    <BackTitleButton
+                        callBack={() => navigation.goBack()}
+                        title={'Change password'}
+                    />
                     <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
                         <Text style={styles.label}>Enter current password</Text>
                         <View style={styles.inputContainer}>
-                            <FontAwesome name="lock" size={24} color={COLORS.darkGreen} style={styles.icon} />
+                            <FontAwesome
+                                name="lock"
+                                size={24}
+                                color={COLORS.darkGreen}
+                                style={styles.icon}
+                            />
                             <TextInput
                                 style={styles.input}
                                 value={newPassword}
@@ -27,38 +49,51 @@ const EnterPassword = ({ navigation }) => {
                                 placeholder="PASSWORD"
                                 secureTextEntry={!isPasswordVisible}
                             />
-                            <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    setPasswordVisible(!isPasswordVisible)
+                                }
+                            >
                                 <FontAwesome
-                                    name={isPasswordVisible ? "eye-slash" : "eye"}
+                                    name={
+                                        isPasswordVisible ? 'eye-slash' : 'eye'
+                                    }
                                     size={24}
                                     color={COLORS.darkGreen}
                                 />
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')} style={styles.confirmBtn}>
+                    <View
+                        style={{
+                            alignItems: 'flex-start',
+                            justifyContent: 'flex-start',
+                        }}
+                    >
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('ResetPassword')}
+                            style={styles.confirmBtn}
+                        >
                             <Text style={styles.btnText}>Next</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
         paddingHorizontal: 20,
-        paddingTop: 30
+        paddingTop: 30,
     },
     label: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginVertical: 20
+        marginVertical: 20,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -86,14 +121,13 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         alignSelf: 'center',
         justifyContent: 'center',
-        bottom: -550,
     },
     btnText: {
         color: COLORS.white,
         fontSize: SIZES.title,
         fontWeight: 'bold',
-        textAlign: 'center'
-    }
-});
+        textAlign: 'center',
+    },
+})
 
-export default EnterPassword;
+export default EnterPassword

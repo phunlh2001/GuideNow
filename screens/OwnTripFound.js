@@ -1,6 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons'
 import React, { useState } from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Image } from 'react-native-elements'
 import BackTitleList from '../components/BackTitleList'
 import COLORS from '../constants/color'
@@ -17,7 +17,9 @@ const OwnTripFound = ({ navigation }) => {
 
             <View style={{ paddingHorizontal: 20 }}>
                 <View style={styles.backgroundHeader}>
-                    <Text style={styles.insideBackground}>Found tour guides</Text>
+                    <Text style={styles.insideBackground}>
+                        Found tour guides
+                    </Text>
                 </View>
             </View>
 
@@ -31,7 +33,11 @@ const OwnTripFound = ({ navigation }) => {
                         <View style={styles.ratingContainer}>
                             <View style={styles.rating}>
                                 <Text style={styles.ratingText}>5.0</Text>
-                                <FontAwesome name="star" size={16} color={COLORS.white} />
+                                <FontAwesome
+                                    name="star"
+                                    size={16}
+                                    color={COLORS.white}
+                                />
                             </View>
                             <Text style={styles.status}>Male</Text>
                             <Text style={styles.status}>Good</Text>
@@ -42,12 +48,14 @@ const OwnTripFound = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <TouchableOpacity onPress={() => navigation.navigate('OwnTripSuccess')} style={styles.confirmBtn}>
+            <View style={{ justifyContent: 'flex-end' }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('OwnTripSuccess')}
+                    style={styles.confirmBtn}
+                >
                     <Text style={styles.btnText}>Confirm</Text>
                 </TouchableOpacity>
             </View>
-
         </View>
     )
 }
@@ -58,7 +66,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 40,
         flex: 1,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
     },
     backgroundHeader: {
         position: 'relative',
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
         marginTop: 40,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     insideBackground: {
         fontWeight: 'bold',
@@ -81,17 +89,17 @@ const styles = StyleSheet.create({
     fill: {
         fontSize: SIZES.h1,
         color: COLORS.deepGreen,
-        marginVertical: 20
+        marginVertical: 20,
     },
     title: {
         fontWeight: 'bold',
         color: COLORS.black,
         fontSize: SIZES.title,
-        marginBottom: 10
+        marginBottom: 10,
     },
     horizonScroll: {
         height: 150,
-        marginTop: 20
+        marginTop: 20,
     },
     itemContainer: {
         padding: 20,
@@ -103,15 +111,15 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 10,
         marginVertical: 40,
-        width: '100%'
+        width: '100%',
     },
 
     ratingContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: "center",
+        justifyContent: 'center',
         marginBottom: 10,
-        gap: 10
+        gap: 10,
     },
     rating: {
         flexDirection: 'row',
@@ -137,7 +145,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 20,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     confirmBtn: {
         backgroundColor: COLORS.darkGreen,
@@ -147,11 +155,11 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         alignSelf: 'center',
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     btnText: {
         color: COLORS.white,
         fontSize: SIZES.title,
-        fontWeight: 'bold'
-    }
+        fontWeight: 'bold',
+    },
 })

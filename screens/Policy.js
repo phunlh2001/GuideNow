@@ -5,40 +5,59 @@ import BackTitleButton from '../components/BackTitleButton'
 import SIZES from '../constants/fontsize'
 
 const Policy = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <BackTitleButton callBack={() => navigation.goBack()} title={'Privacy policy'} />
-      <View style={{ paddingHorizontal: 20, marginTop: 40 }}>
-        <View>
-          <Text style={styles.title}>Title</Text>
-          <Text style={styles.des}>thông tin văn bản gì gì đó ghi ở đây. aiaobgoabggajovajvjabvjadv jadlvdnjnjvjlav djalv adjlaljvda vlja dvjlad vjlavd vjv</Text>
-          <Text style={styles.des}>thông tin văn bản gì gì đó ghi ở đây. aiaobgoabggajovajvjabvjadv jadlvdnjnjvjlav djalv adjlaljvda vlja dvjlad vjlavd vjv</Text>
+    return (
+        <View style={styles.container}>
+            <BackTitleButton
+                callBack={() => navigation.goBack()}
+                title={'Privacy policy'}
+            />
+            <View style={{ paddingHorizontal: 20, marginTop: 40 }}>
+                <View>
+                    <Text style={styles.title}>Title</Text>
+                    <Text style={styles.des}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Soluta perferendis neque aperiam vero deleniti ullam
+                        ipsum magni minus numquam accusamus!
+                    </Text>
+                    <Text style={styles.des}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Soluta perferendis neque aperiam vero deleniti ullam
+                        ipsum magni minus numquam accusamus!
+                    </Text>
+                </View>
+                <View style={{ marginTop: 40 }}>
+                    <Text style={styles.title}>Title</Text>
+                    <Text style={styles.des}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Soluta perferendis neque aperiam vero deleniti ullam
+                        ipsum magni minus numquam accusamus!
+                    </Text>
+                    <Text style={styles.des}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Soluta perferendis neque aperiam vero deleniti ullam
+                        ipsum magni minus numquam accusamus!
+                    </Text>
+                </View>
+            </View>
         </View>
-        <View style={{ marginTop: 40 }}>
-          <Text style={styles.title}>Title</Text>
-          <Text style={styles.des}>thông tin văn bản gì gì đó ghi ở đây. aiaobgoabggajovajvjabvjadv jadlvdnjnjvjlav djalv adjlaljvda vlja dvjlad vjlavd vjv</Text>
-          <Text style={styles.des}>thông tin văn bản gì gì đó ghi ở đây. aiaobgoabggajovajvjabvjadv jadlvdnjnjvjlav djalv adjlaljvda vlja dvjlad vjlavd vjv</Text>
-        </View>
-      </View>
-    </View>
-  )
+    )
 }
 
 export default Policy
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    paddingHorizontal: 20,
-    paddingTop: 30
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: SIZES.heroSection,
-    marginBottom: 20
-  },
-  des: {
-    marginBottom: 20
-  }
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.white,
+        paddingHorizontal: 20,
+        paddingTop: 30,
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: SIZES.heroSection,
+        marginBottom: 20,
+    },
+    des: {
+        marginBottom: 20,
+    },
 })
