@@ -63,6 +63,7 @@ const GeneralInfo = observer(({ goNext }) => {
                     onChangeText={(text) =>
                         handleInputChange('phoneNumber', text)
                     }
+                    keyboardType='numeric'
                 />
                 {registrationStore.phoneNumberError ? (
                     <Text style={styles.errorText}>

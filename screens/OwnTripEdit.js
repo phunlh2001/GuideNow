@@ -49,8 +49,13 @@ const OwnTripEdit = ({ navigation }) => {
                         <View style={styles.optionContent}>
                             <Image source={{ uri: `${option.url}` }} style={styles.imagePlaceholder} />
                             <View style={styles.textContainer}>
-                                <Text style={styles.optionName}>{option.name}</Text>
-                                <Text style={styles.optionDescription} numberOfLines={3}>{option.description}</Text>
+                                <View>
+                                    <Text style={styles.optionName}>{option.name}</Text>
+                                    <Text style={styles.optionDescription} numberOfLines={3}>{option.description}</Text>
+                                </View>
+                                <TouchableOpacity style={styles.detailBtn} onPress={() => navigation.navigate('PlaceDetail')}>
+                                    <Text style={{ textAlign: 'center', color: COLORS.white }}>Detail</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ marginLeft: 20 }}>
@@ -100,6 +105,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1,
+        justifyContent: "space-between"
     },
     optionName: {
         fontSize: SIZES.header,
@@ -123,7 +129,14 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontSize: SIZES.title,
         fontWeight: 'bold'
-    }
+    },
+    detailBtn: {
+        paddingVertical: 7,
+        backgroundColor: COLORS.darkGreen,
+        width: 100,
+        borderRadius: 15
+    },
+
 });
 
 export default OwnTripEdit;

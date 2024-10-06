@@ -36,20 +36,22 @@ const customStyles = {
     currentStepLabelColor: '#1A9244',
 }
 
-const checkStep = (position, setNewPosition) => {
-    switch (position) {
-        case 0:
-            return <CreateAccount goNext={setNewPosition} />
-        case 1:
-            return <GeneralInfo goNext={setNewPosition} />
-        case 2:
-            return <VerificationScreen goNext={setNewPosition} />
-        case 3:
-            return null
-    }
-}
 
-const Register = () => {
+
+const Register = ({ navigation }) => {
+
+    const checkStep = (position, setNewPosition) => {
+        switch (position) {
+            case 0:
+                return <CreateAccount goNext={setNewPosition} />
+            case 1:
+                return <GeneralInfo goNext={setNewPosition} />
+            case 2:
+                return <VerificationScreen goNext={setNewPosition} />
+            case 3:
+                return navigation.navigate('Photo')
+        }
+    }
     const [currentPosition, setCurrentPosition] = useState(0)
 
     return (

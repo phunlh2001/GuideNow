@@ -17,8 +17,15 @@ export default function Login({ navigation }) {
     const [isRememberPw, setIsRememberPw] = useState(false)
 
     const handleLogin = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'DrawerGuide' }]
+        })
         if (username === 'nguyen' && password === '2612') {
-            navigation.navigate('DrawerGuide')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'DrawerGuide' }]
+            })
         } else {
             alert('Incorrect username or password')
         }

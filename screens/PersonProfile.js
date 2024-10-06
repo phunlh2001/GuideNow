@@ -15,6 +15,13 @@ const PersonProfile = ({ navigation }) => {
         setOpenModal(false)
         setImage(preImage.assets[0].base64)
     }
+
+    const handleLogout = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'login' }]
+        })
+    }
     return (
         <View style={styles.container}>
             {renderModal(openModal, setOpenModal, uploadImage, setImageResult)}
@@ -89,8 +96,9 @@ const PersonProfile = ({ navigation }) => {
                         <FontAwesome name="chevron-right" size={20} color={COLORS.darkGreen} />
                     </TouchableOpacity>
                 </View>
-
-                <Text style={{ textAlign: 'center', paddingBottom: 150, marginTop: 20 }}>Version 24.08.2024.1.2</Text>
+                <TouchableOpacity style={styles.btn} onPress={handleLogout}>
+                    <Text style={styles.btnText}>Log out</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );
@@ -181,6 +189,18 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: COLORS.black,
     },
+    btn: {
+        paddingVertical: 10,
+        borderWidth: 1,
+        borderColor: COLORS.darkGreen,
+        borderRadius: 20,
+        marginTop: 40,
+        marginBottom: 150,
+    },
+    btnText: {
+        textAlign: 'center',
+        fontSize: SIZES.title
+    }
 });
 
 export default PersonProfile;

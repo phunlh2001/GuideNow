@@ -25,6 +25,8 @@ import ResetPassword from '../screens/ResetPassword'
 import Review from '../screens/Review'
 import TermOfUse from '../screens/TermOfUse'
 import TourGuideDetail from '../screens/TourGuideDetail'
+import Photo from '../screens/register/components/Photo'
+import PlaceDetail from '../screens/PlaceDetail'
 
 export const routes = [
     {
@@ -161,5 +163,15 @@ export const routes = [
         id: 27,
         name: 'Chat',
         component: Chat,
+    },
+    {
+        id: 28,
+        name: 'Photo',
+        component: Photo
+    },
+    {
+        id: 29,
+        name: 'PlaceDetail',
+        component: PlaceDetail
     },
 ]

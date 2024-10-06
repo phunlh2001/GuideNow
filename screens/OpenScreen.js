@@ -1,12 +1,20 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import iconImage from '../assets/whiteLogo.png'
+import { useEffect } from 'react'
 
 const OpenScreen = ({ navigation }) => {
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigation.navigate('login');
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [navigation]);
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('login')}
                 style={styles.actionIcon}
             >
                 <Image source={iconImage} style={styles.image} />
