@@ -8,7 +8,6 @@ const VerificationScreen = ({ goNext }) => {
 
     const handleCodeChange = (code) => {
         setVerificationCode(code)
-        console.log('Verification Code:', code)
     }
 
     const isCodeValid = verificationCode === '123456'

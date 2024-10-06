@@ -8,19 +8,17 @@ import {
     View,
 } from 'react-native'
 import iconLogo from '../assets/blueLogo.png'
-import { useNavigation } from '@react-navigation/native'
 import CheckBox from 'react-native-check-box'
 import CoreButton from '../components/CoreButton'
 
-export default function Login() {
-    const navigation = useNavigation()
+export default function Login({ navigation }) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isRememberPw, setIsRememberPw] = useState(false)
 
     const handleLogin = () => {
         if (username === 'nguyen' && password === '2612') {
-            navigation.navigate('HomePage')
+            navigation.navigate('DrawerGuide')
         } else {
             alert('Incorrect username or password')
         }
