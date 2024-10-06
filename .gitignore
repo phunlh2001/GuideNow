@@ -36,6 +36,3 @@ yarn-error.*
 
 # vscode
 .vscode
-
-#yarn
-yarn.lock
