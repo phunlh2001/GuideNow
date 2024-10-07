@@ -13,11 +13,14 @@ import { observer } from 'mobx-react'
 import CoreButton from '../../../components/CoreButton'
 import { registrationStore } from '../../../mobx/registerStore'
 import iconLogo from '../../../assets/blueLogo.png'
+import { FontAwesome } from '@expo/vector-icons';
+import COLORS from '../../../constants/color'
 
 const CreateAccount = observer(({ goNext }) => {
     const navigation = useNavigation()
     const [isValid, setIsValid] = useState(false)
-
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
+    const [isRePasswordVisible, setRePasswordVisible] = useState(false);
     useEffect(() => {
         setIsValid(registrationStore.validateRegister())
     }, [
@@ -54,27 +57,51 @@ const CreateAccount = observer(({ goNext }) => {
                     {registrationStore.userNameError}
                 </Text>
             )}
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                placeholderTextColor="#347E5B"
-                value={registrationStore.password}
-                onChangeText={(text) => handleInputChange('password', text)}
-            />
+            <View style={{ position: 'relative' }}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry={!isPasswordVisible}
+                    placeholderTextColor="#347E5B"
+                    value={registrationStore.password}
+                    onChangeText={(text) => handleInputChange('password', text)}
+                />
+                <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}
+                    style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <FontAwesome
+                            name={isPasswordVisible ? "eye-slash" : "eye"}
+                            size={24}
+                            color={COLORS.darkGreen}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </View>
             {registrationStore.passwordError && (
                 <Text style={styles.errorText}>
                     {registrationStore.passwordError}
                 </Text>
             )}
-            <TextInput
-                style={styles.input}
-                placeholder="Re-enter password"
-                secureTextEntry
-                placeholderTextColor="#347E5B"
-                value={registrationStore.rePassword}
-                onChangeText={(text) => handleInputChange('rePassword', text)}
-            />
+            <View style={{ position: 'relative' }}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Re-enter password"
+                    secureTextEntry={!isRePasswordVisible}
+                    placeholderTextColor="#347E5B"
+                    value={registrationStore.rePassword}
+                    onChangeText={(text) => handleInputChange('rePassword', text)}
+                />
+                <TouchableOpacity onPress={() => setRePasswordVisible(!isRePasswordVisible)}
+                    style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <FontAwesome
+                            name={isRePasswordVisible ? "eye-slash" : "eye"}
+                            size={24}
+                            color={COLORS.darkGreen}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </View>
             {registrationStore.errors.rePassword && (
                 <Text style={styles.errorText}>
                     {registrationStore.errors.rePassword}

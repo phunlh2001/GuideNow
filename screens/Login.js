@@ -10,11 +10,14 @@ import {
 import iconLogo from '../assets/blueLogo.png'
 import CheckBox from 'react-native-check-box'
 import CoreButton from '../components/CoreButton'
+import { FontAwesome } from '@expo/vector-icons';
+import COLORS from '../constants/color'
 
 export default function Login({ navigation }) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isRememberPw, setIsRememberPw] = useState(false)
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     const handleLogin = () => {
         navigation.reset({
@@ -57,14 +60,26 @@ export default function Login({ navigation }) {
             />
 
             {/* Password Input */}
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry
-                placeholderTextColor="#347E5B"
-                value={password}
-                onChangeText={setPassword}
-            />
+            <View style={{ position: 'relative' }}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    placeholderTextColor="#347E5B"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry={!isPasswordVisible}
+                />
+                <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}
+                    style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <FontAwesome
+                            name={isPasswordVisible ? "eye-slash" : "eye"}
+                            size={24}
+                            color={COLORS.darkGreen}
+                        />
+                    </View>
+                </TouchableOpacity>
+            </View>
 
             <View style={styles.forgetBox}>
                 <CheckBox
