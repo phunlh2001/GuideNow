@@ -2,6 +2,8 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
     Image,
+    KeyboardAvoidingView,
+    ScrollView,
     StyleSheet,
     Text,
     TextInput,
@@ -15,6 +17,7 @@ import { registrationStore } from '../../../mobx/registerStore'
 import iconLogo from '../../../assets/blueLogo.png'
 import { FontAwesome } from '@expo/vector-icons';
 import COLORS from '../../../constants/color'
+import { Platform } from 'react-native'
 
 const CreateAccount = observer(({ goNext }) => {
     const navigation = useNavigation()
@@ -34,107 +37,109 @@ const CreateAccount = observer(({ goNext }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.boxLogo}>
-                <Image source={iconLogo} style={styles.logo} />
-                <Text style={styles.logoTitle}>GuideNow</Text>
-            </View>
+        <ScrollView style={{ marginBottom: 100 }} showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
+                <View style={styles.boxLogo}>
+                    <Image source={iconLogo} style={styles.logo} />
+                    <Text style={styles.logoTitle}>GuideNow</Text>
+                </View>
 
-            <View style={styles.boxTitle}>
-                <Text style={styles.title}>Register</Text>
-                <Text style={styles.subTitle}>Please fill in the blanks</Text>
-            </View>
+                <View style={styles.boxTitle}>
+                    <Text style={styles.title}>Register</Text>
+                    <Text style={styles.subTitle}>Please fill in the blanks</Text>
+                </View>
 
-            <TextInput
-                style={styles.input}
-                placeholder="UserName"
-                placeholderTextColor="#347E5B"
-                value={registrationStore.userName}
-                onChangeText={(text) => handleInputChange('userName', text)}
-            />
-            {registrationStore.userNameError && (
-                <Text style={styles.errorText}>
-                    {registrationStore.userNameError}
-                </Text>
-            )}
-            <View style={{ position: 'relative' }}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Password"
-                    secureTextEntry={!isPasswordVisible}
+                    placeholder="UserName"
                     placeholderTextColor="#347E5B"
-                    value={registrationStore.password}
-                    onChangeText={(text) => handleInputChange('password', text)}
+                    value={registrationStore.userName}
+                    onChangeText={(text) => handleInputChange('userName', text)}
                 />
-                <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}
-                    style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
-                    <View style={{ alignItems: 'center' }}>
-                        <FontAwesome
-                            name={isPasswordVisible ? "eye-slash" : "eye"}
-                            size={24}
-                            color={COLORS.darkGreen}
-                        />
-                    </View>
-                </TouchableOpacity>
-            </View>
-            {registrationStore.passwordError && (
-                <Text style={styles.errorText}>
-                    {registrationStore.passwordError}
-                </Text>
-            )}
-            <View style={{ position: 'relative' }}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Re-enter password"
-                    secureTextEntry={!isRePasswordVisible}
-                    placeholderTextColor="#347E5B"
-                    value={registrationStore.rePassword}
-                    onChangeText={(text) => handleInputChange('rePassword', text)}
-                />
-                <TouchableOpacity onPress={() => setRePasswordVisible(!isRePasswordVisible)}
-                    style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
-                    <View style={{ alignItems: 'center' }}>
-                        <FontAwesome
-                            name={isRePasswordVisible ? "eye-slash" : "eye"}
-                            size={24}
-                            color={COLORS.darkGreen}
-                        />
-                    </View>
-                </TouchableOpacity>
-            </View>
-            {registrationStore.errors.rePassword && (
-                <Text style={styles.errorText}>
-                    {registrationStore.errors.rePassword}
-                </Text>
-            )}
-
-            <View style={styles.boxButton}>
-                <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                    <View style={styles.backButton}>
-                        <Ionicons
-                            name="caret-back-outline"
-                            color="#347E5B"
-                            size={32}
-                        />
-                        <Text style={styles.textSpaceMove}>Back</Text>
-                    </View>
-                </TouchableOpacity>
-                <View style={{ width: 200, alignSelf: 'center' }}>
-                    <CoreButton
-                        title={'Continue'}
-                        callBack={() => goNext(1)}
-                        disabled={!isValid}
+                {registrationStore.userNameError && (
+                    <Text style={styles.errorText}>
+                        {registrationStore.userNameError}
+                    </Text>
+                )}
+                <View style={{ position: 'relative' }}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        secureTextEntry={!isPasswordVisible}
+                        placeholderTextColor="#347E5B"
+                        value={registrationStore.password}
+                        onChangeText={(text) => handleInputChange('password', text)}
                     />
+                    <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}
+                        style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                        <View style={{ alignItems: 'center' }}>
+                            <FontAwesome
+                                name={isPasswordVisible ? "eye-slash" : "eye"}
+                                size={24}
+                                color={COLORS.darkGreen}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                {registrationStore.passwordError && (
+                    <Text style={styles.errorText}>
+                        {registrationStore.passwordError}
+                    </Text>
+                )}
+                <View style={{ position: 'relative' }}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Re-enter password"
+                        secureTextEntry={!isRePasswordVisible}
+                        placeholderTextColor="#347E5B"
+                        value={registrationStore.rePassword}
+                        onChangeText={(text) => handleInputChange('rePassword', text)}
+                    />
+                    <TouchableOpacity onPress={() => setRePasswordVisible(!isRePasswordVisible)}
+                        style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                        <View style={{ alignItems: 'center' }}>
+                            <FontAwesome
+                                name={isRePasswordVisible ? "eye-slash" : "eye"}
+                                size={24}
+                                color={COLORS.darkGreen}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                {registrationStore.errors.rePassword && (
+                    <Text style={styles.errorText}>
+                        {registrationStore.errors.rePassword}
+                    </Text>
+                )}
+
+                <View style={styles.boxButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                        <View style={styles.backButton}>
+                            <Ionicons
+                                name="caret-back-outline"
+                                color="#347E5B"
+                                size={32}
+                            />
+                            <Text style={styles.textSpaceMove}>Back</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ width: 200, alignSelf: 'center' }}>
+                        <CoreButton
+                            title={'Continue'}
+                            callBack={() => goNext(1)}
+                            disabled={!isValid}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.moveRegister}>
+                    <Text style={styles.moveText}>You have an account?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                        <Text style={styles.textSpaceMove}>Sign In</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-
-            <View style={styles.moveRegister}>
-                <Text style={styles.moveText}>You have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                    <Text style={styles.textSpaceMove}>Sign In</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        </ScrollView>
     )
 })
 
@@ -161,7 +166,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: 100,
-        height: 100,
+        height: 300,
         resizeMode: 'contain',
         alignSelf: 'center',
     },

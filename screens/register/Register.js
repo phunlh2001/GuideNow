@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { KeyboardAvoidingView, Platform, View } from 'react-native'
 import StepIndicator from 'react-native-step-indicator'
 import CreateAccount from './components/CreateAccount'
 import GeneralInfo from './components/GeneralInfo'
@@ -55,19 +55,24 @@ const Register = ({ navigation }) => {
     const [currentPosition, setCurrentPosition] = useState(0)
 
     return (
-        <View
-            style={{ height: '100%', paddingTop: 55, backgroundColor: '#FFF' }}
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-            <StepIndicator
-                customStyles={customStyles}
-                currentPosition={currentPosition}
-                labels={labels}
-                stepCount={4}
-            />
-            <View style={{ height: '100%' }}>
-                {checkStep(currentPosition, setCurrentPosition)}
+            <View
+                style={{ height: '100%', paddingTop: 55, backgroundColor: '#FFF' }}
+            >
+                <StepIndicator
+                    customStyles={customStyles}
+                    currentPosition={currentPosition}
+                    labels={labels}
+                    stepCount={4}
+                />
+                <View style={{ height: '100%' }}>
+                    {checkStep(currentPosition, setCurrentPosition)}
+                </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
