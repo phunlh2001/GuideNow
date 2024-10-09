@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CoreButton from '../../../components/CoreButton'
 import VertifyCodeInput from '../../../components/VertifyCodeInput'
+import { useNavigation } from '@react-navigation/native'
 
 const VerificationScreen = ({ goNext }) => {
     const [verificationCode, setVerificationCode] = useState('')
@@ -9,6 +10,8 @@ const VerificationScreen = ({ goNext }) => {
     const handleCodeChange = (code) => {
         setVerificationCode(code)
     }
+
+    const navigation = useNavigation()
 
     const isCodeValid = verificationCode === '123456'
 
@@ -35,8 +38,8 @@ const VerificationScreen = ({ goNext }) => {
                 </View>
                 <View style={{ flex: 1 }}>
                     <CoreButton
-                        // callBack={() => navigation.navigate('login')}
-                        callBack={() => goNext(3)}
+                        callBack={() => navigation.navigate('Photo')}
+                        //callBack={() => goNext(3)}
                         title={'NEXT'}
                         disabled={!isCodeValid}
                     />
