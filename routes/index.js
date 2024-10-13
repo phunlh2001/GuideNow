@@ -1,3 +1,6 @@
+import Login from '../screens/Login'
+import OpenScreen from '../screens/OpenScreen'
+import Register from '../screens/register/Register'
 import DrawerGuide from '../components/DrawerGuide'
 import Chat from '../screens/Chat'
 import EnterPassword from '../screens/EnterPassword'
@@ -22,8 +25,25 @@ import ResetPassword from '../screens/ResetPassword'
 import Review from '../screens/Review'
 import TermOfUse from '../screens/TermOfUse'
 import TourGuideDetail from '../screens/TourGuideDetail'
+import Photo from '../screens/register/components/Photo'
+import PlaceDetail from '../screens/PlaceDetail'
 
 export const routes = [
+    {
+        id: 1,
+        name: 'openscreen',
+        component: OpenScreen,
+    },
+    {
+        id: 2,
+        name: 'login',
+        component: Login,
+    },
+    {
+        id: 3,
+        name: 'register',
+        component: Register,
+    },
     {
         id: 4,
         name: 'DrawerGuide',
@@ -143,5 +163,15 @@ export const routes = [
         id: 27,
         name: 'Chat',
         component: Chat,
+    },
+    {
+        id: 28,
+        name: 'Photo',
+        component: Photo
+    },
+    {
+        id: 29,
+        name: 'PlaceDetail',
+        component: PlaceDetail
     },
 ]
