@@ -38,7 +38,7 @@ const Review = ({ navigation }) => {
                                     <Avatar
                                         rounded
                                         source={{
-                                            uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg',
+                                            uri: 'https://png.pngtree.com/png-vector/20230527/ourmid/pngtree-suitable-for-mobile-apps-web-apps-and-print-media-the-vector-image-of-a-tour-guide-icon-is-available-vector-png-image_52259232.jpg',
                                         }}
                                         size={'medium'}
                                     />
@@ -54,7 +54,7 @@ const Review = ({ navigation }) => {
                                         <Text
                                             style={{ fontSize: SIZES.caption }}
                                         >
-                                            14:41 24/08/2024
+                                            24/08/2024
                                         </Text>
                                     </View>
                                 </View>

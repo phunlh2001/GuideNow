@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -11,33 +11,32 @@ import BackTitleList from '../components/BackTitleList'
 import HeaderOwnTrip from '../components/HeaderOwnTrip'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import { FontAwesome } from '@expo/vector-icons'
+import { clearStorage, getStorage } from '../utils/storage'
+import { getOneCombo } from '../api/combo'
+import { convertDate, formatPrice } from '../utils/converter'
 
 const OwnTripBill = ({ navigation }) => {
     const [bank, setBank] = useState(null)
     const [promotionCode, setPromotionCode] = useState(null)
+    const [billDetail, setBillDetail] = useState({})
 
     useFocusEffect(
         useCallback(() => {
             const getDataFromStorage = async () => {
                 try {
-                    const storedItem = await AsyncStorage.getItem(
-                        'selectedBank',
-                    )
+                    const storedItem = await getStorage('selectedBank')
                     if (storedItem !== null) {
-                        const parsedItem = JSON.parse(storedItem)
-                        setBank(parsedItem)
-                        await AsyncStorage.removeItem('selectedBank')
+                        setBank(storedItem)
+                        await clearStorage('selectedBank')
                     }
-                    const storedItemPromotion = await AsyncStorage.getItem(
+                    const storedItemPromotion = await getStorage(
                         'selectedPromotion',
                     )
                     if (storedItemPromotion !== null) {
-                        const parsedItem = JSON.parse(storedItemPromotion)
-                        setPromotionCode(parsedItem)
-                        await AsyncStorage.removeItem('selectedPromotion')
+                        setPromotionCode(storedItemPromotion)
+                        await clearStorage('selectedPromotion')
                     }
                 } catch (error) {
                     console.log(error)
@@ -48,13 +47,30 @@ const OwnTripBill = ({ navigation }) => {
         }),
     )
 
+    const getBill = async () => {
+        try {
+            const dateInfo = await getStorage('dateInfo')
+            const { data } = await getStorage('comboObj')
+            const res = await getOneCombo(data.id)
+            setBillDetail({
+                ...dateInfo.data,
+                comboId: res.data.id,
+                price: res.data.price,
+            })
+        } catch (error) {}
+    }
+
+    useEffect(() => {
+        getBill()
+    }, [])
+
     const onEdit = async (type) => {
         if (type === 'bank') {
-            await AsyncStorage.removeItem('selectedBank')
+            await clearStorage('selectedBank')
             setBank(null)
             navigation.navigate('OwnTripPayment')
         } else {
-            await AsyncStorage.removeItem('selectedPromotion')
+            await clearStorage('selectedPromotion')
             setPromotionCode(null)
             navigation.navigate('OwnTripPromotion')
         }
@@ -70,20 +86,19 @@ const OwnTripBill = ({ navigation }) => {
                 <View style={styles.imageBox}>
                     <Image
                         source={{
-                            uri: 'https://s3-alpha-sig.figma.com/img/a2d8/786d/262873bd9ea8b592f4f116aed430692b?Expires=1728259200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=frVHxOLneYmI3xBfyUEvlyrXgMv4QdoOTYq9rR0Ib9zIFyBl3yVp-jKiITAarStDjFCVJPxJDMvGh3UNRL0tekzZM4k-pHm6nslmF2~XJ0O~x8O08xw~cjwFCgApNpblUlrJNBwGhF9cbkqS3w2VRUalot5S1VISMTB~xO3fMpWJ4NOUjER0ikDAaCsOlyDP0QxLTb~I3bh31ZRR8hzk~gO9AFKYvA4Q9-YKJNxt2vQNdINHd6TgWwpxstkJ4YEODT3R64VhDZzaEvqkUP0aJjHy5lprXOmWNwC4~ZuyzyFWA5Si9W3JbNRCMESMrBND3zjkw0WGg2OIayWN4p9cTA__',
+                            uri: 'https://3vi.vn/wp-content/uploads/2023/01/com-tam-long-xuyen-mon-an-don-gian-nhung-day-cuon-hut-01-1660584910.jpg',
                         }}
                         style={styles.image}
                     />
                     <View style={styles.ticketInfo}>
-                        <Text style={styles.ticketLocation}>
-                            Cần Thơ #232848
-                        </Text>
+                        <Text style={styles.ticketLocation}>Cần Thơ</Text>
                     </View>
                 </View>
                 <View style={styles.descriptionBox}>
                     <Text style={styles.description}>
-                        Hi hello how're you doing? Some description here about
-                        the journey or place.
+                        Explore the beauty of Can Tho with a visit to the Cai
+                        Rang floating market, where you can witness the vibrant
+                        life on the river and enjoy fresh local fruits.
                     </Text>
                 </View>
             </View>
@@ -124,7 +139,7 @@ const OwnTripBill = ({ navigation }) => {
                 <Text style={styles.label}>Departure date:</Text>
                 <TextInput
                     style={styles.input}
-                    value="7:00 PM 05/08/2024"
+                    value={convertDate(billDetail.departureDate)}
                     editable={false}
                 />
             </View>
@@ -133,14 +148,18 @@ const OwnTripBill = ({ navigation }) => {
                 <Text style={styles.label}>Return date:</Text>
                 <TextInput
                     style={styles.input}
-                    value="10:00 PM 06/08/2024"
+                    value={convertDate(billDetail.returnDate)}
                     editable={false}
                 />
             </View>
 
             <View style={styles.formField}>
                 <Text style={styles.label}>Price:</Text>
-                <Text style={styles.priceText}>1.000.000 vnd</Text>
+                <Text style={styles.priceText}>
+                    {formatPrice(
+                        billDetail.numberOfParticipants * billDetail.price,
+                    )}
+                </Text>
             </View>
 
             <View style={styles.formField}>
@@ -176,7 +195,16 @@ const OwnTripBill = ({ navigation }) => {
 
             <View style={styles.formField}>
                 <Text style={styles.label}>Total price:</Text>
-                <Text style={styles.priceText}>1.000.000 vnd</Text>
+                <Text style={styles.priceText}>
+                    {formatPrice(
+                        promotionCode
+                            ? billDetail.numberOfParticipants *
+                                  billDetail.price *
+                                  0.85
+                            : billDetail.numberOfParticipants *
+                                  billDetail.price,
+                    )}
+                </Text>
             </View>
 
             <View style={{ justifyContent: 'flex-end' }}>

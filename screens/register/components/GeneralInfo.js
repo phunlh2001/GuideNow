@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import CoreButton from '../../../components/CoreButton'
 import DateInput from '../../../components/DatePickerCustom'
 import { registrationStore } from '../../../mobx/registerStore'
+import { convertDate } from '../../../utils/converter'
 
 const GeneralInfo = observer(({ goNext }) => {
     const [isValid, setIsValid] = useState(false)
@@ -13,7 +14,6 @@ const GeneralInfo = observer(({ goNext }) => {
     }, [
         registrationStore.name,
         registrationStore.birthday,
-        registrationStore.sex,
         registrationStore.email,
         registrationStore.phoneNumber,
     ])
@@ -23,11 +23,16 @@ const GeneralInfo = observer(({ goNext }) => {
     }
 
     return (
-        <ScrollView style={{ marginBottom: 100 }} showsVerticalScrollIndicator={false}>
+        <ScrollView
+            style={{ marginBottom: 100 }}
+            showsVerticalScrollIndicator={false}
+        >
             <View style={styles.container}>
                 <View style={styles.infomationContainer}>
                     <Text style={styles.mainTitle}>General information</Text>
-                    <Text style={styles.subTitle}>Please fill in the blanks</Text>
+                    <Text style={styles.subTitle}>
+                        Please fill in the blanks
+                    </Text>
                 </View>
 
                 <View style={styles.spaceInput}>
@@ -42,14 +47,20 @@ const GeneralInfo = observer(({ goNext }) => {
                         style={styles.input}
                         placeholder="Birthday"
                         value={registrationStore.birthday}
-                        onDateChange={(date) => handleInputChange('birthday', date)}
+                        onDateChange={(date) =>
+                            handleInputChange('birthday', convertDate(date))
+                        }
                     />
                     <TextInput
+                        autoCapitalize="none"
                         style={styles.input}
                         placeholder="Email"
                         placeholderTextColor="#347E5B"
+                        keyboardType="email-address"
                         value={registrationStore.email}
-                        onChangeText={(text) => handleInputChange('email', text)}
+                        onChangeText={(text) =>
+                            handleInputChange('email', text)
+                        }
                     />
                     {registrationStore.emailError && (
                         <Text style={styles.errorText}>
@@ -64,13 +75,13 @@ const GeneralInfo = observer(({ goNext }) => {
                         onChangeText={(text) =>
                             handleInputChange('phoneNumber', text)
                         }
-                        keyboardType='numeric'
+                        keyboardType="numeric"
                     />
-                    {registrationStore.phoneNumberError ? (
+                    {registrationStore.phoneNumberError && (
                         <Text style={styles.errorText}>
                             {registrationStore.phoneNumberError}
                         </Text>
-                    ) : null}
+                    )}
                 </View>
 
                 <View style={styles.btn_space}>
@@ -125,22 +136,6 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: '#D9EDDB',
         color: '#347E5B',
-    },
-    boxSex: {
-        width: '100%',
-        gap: 10,
-        flexDirection: 'row',
-    },
-    sexInput: {
-        height: 50,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 15,
-        marginBottom: 15,
-        backgroundColor: '#D9EDDB',
-        color: '#347E5B',
-        flex: 1,
     },
     dateInput: {
         height: 50,

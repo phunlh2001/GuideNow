@@ -25,7 +25,7 @@ const TourGuideDetail = ({ navigation }) => {
                 <View style={styles.imageContainer}>
                     <Image
                         source={{
-                            uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg',
+                            uri: 'https://png.pngtree.com/png-vector/20230527/ourmid/pngtree-suitable-for-mobile-apps-web-apps-and-print-media-the-vector-image-of-a-tour-guide-icon-is-available-vector-png-image_52259232.jpg',
                         }}
                         style={styles.image}
                     />
@@ -43,7 +43,7 @@ const TourGuideDetail = ({ navigation }) => {
                 }}
             >
                 <Text style={{ fontSize: SIZES.h2, fontWeight: 'bold' }}>
-                    Tour Guide B
+                    Tour Guide A
                 </Text>
                 <View style={styles.ratingContainer}>
                     <View style={styles.rating}>

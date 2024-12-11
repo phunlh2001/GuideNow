@@ -1,3 +1,4 @@
+import { FontAwesome } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import {
     Image,
@@ -7,30 +8,31 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
-import iconLogo from '../assets/blueLogo.png'
 import CheckBox from 'react-native-check-box'
+import { login } from '../api/auth'
+import iconLogo from '../assets/blueLogo.png'
 import CoreButton from '../components/CoreButton'
-import { FontAwesome } from '@expo/vector-icons';
 import COLORS from '../constants/color'
+import { storeData } from '../utils/storage'
+import { error, show } from '../utils/toast'
 
 export default function Login({ navigation }) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isRememberPw, setIsRememberPw] = useState(false)
-    const [isPasswordVisible, setPasswordVisible] = useState(false);
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
 
-    const handleLogin = () => {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'DrawerGuide' }]
-        })
-        if (username === 'nguyen' && password === '2612') {
+    const handleLogin = async () => {
+        try {
+            const res = await login({ username, password })
+            await storeData('account', res, isRememberPw)
+            show(res.message)
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'DrawerGuide' }]
+                routes: [{ name: 'DrawerGuide' }],
             })
-        } else {
-            alert('Incorrect username or password')
+        } catch (err) {
+            error(err.message)
         }
     }
 
@@ -52,8 +54,9 @@ export default function Login({ navigation }) {
 
             {/* Username Input */}
             <TextInput
+                autoCapitalize="none"
                 style={styles.input}
-                placeholder="UserName"
+                placeholder="Username"
                 placeholderTextColor="#347E5B"
                 value={username}
                 onChangeText={setUsername}
@@ -62,6 +65,7 @@ export default function Login({ navigation }) {
             {/* Password Input */}
             <View style={{ position: 'relative' }}>
                 <TextInput
+                    autoCapitalize="none"
                     style={styles.input}
                     placeholder="Password"
                     placeholderTextColor="#347E5B"
@@ -69,11 +73,20 @@ export default function Login({ navigation }) {
                     onChangeText={setPassword}
                     secureTextEntry={!isPasswordVisible}
                 />
-                <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}
-                    style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                <TouchableOpacity
+                    onPress={() => setPasswordVisible(!isPasswordVisible)}
+                    style={{
+                        position: 'absolute',
+                        alignSelf: 'flex-end',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '76%',
+                        right: 10,
+                    }}
+                >
                     <View style={{ alignItems: 'center' }}>
                         <FontAwesome
-                            name={isPasswordVisible ? "eye-slash" : "eye"}
+                            name={isPasswordVisible ? 'eye-slash' : 'eye'}
                             size={24}
                             color={COLORS.darkGreen}
                         />
@@ -90,7 +103,9 @@ export default function Login({ navigation }) {
                     isChecked={isRememberPw}
                     rightText={'Remember password'}
                 />
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('ForgotPassword')}
+                >
                     <Text style={styles.btnFotget}>Forget password?</Text>
                 </TouchableOpacity>
             </View>
@@ -103,7 +118,6 @@ export default function Login({ navigation }) {
             <View style={styles.moveRegister}>
                 <Text style={styles.moveText}>You don't have account?</Text>
                 <TouchableOpacity
-                    style={styles.spaceMove}
                     onPress={() => navigation.navigate('register')}
                 >
                     <Text style={styles.textSpaceMove}>Sign Up</Text>

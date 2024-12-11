@@ -1,37 +1,64 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import BackTitleList from '../components/BackTitleList';
-import COLORS from '../constants/color';
-import SIZES from '../constants/fontsize';
-import { Image } from 'react-native-elements';
-import HeaderOwnTrip from '../components/HeaderOwnTrip';
-
+import { FontAwesome } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useEffect, useState } from 'react'
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
+import { Image } from 'react-native-elements'
+import BackTitleList from '../components/BackTitleList'
+import HeaderOwnTrip from '../components/HeaderOwnTrip'
+import COLORS from '../constants/color'
+import SIZES from '../constants/fontsize'
+import { getPlaces } from '../api/places'
+import { getStorage, storeData } from '../utils/storage'
 
 const OwnTripEdit = ({ navigation }) => {
-    const [selected, setSelected] = useState(null);
-    const options = [
-        { name: 'Option 1', description: 'Description 1', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEadAvccbrbvAwTuTZmz4dOu2Bzg1f_E7poQ&s' },
-        { name: 'Option 2', description: 'Description 2', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEadAvccbrbvAwTuTZmz4dOu2Bzg1f_E7poQ&s' },
-        { name: 'Option 3', description: 'Description 3', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEadAvccbrbvAwTuTZmz4dOu2Bzg1f_E7poQ&s' },
-        { name: 'Option 4', description: 'Description 4', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEadAvccbrbvAwTuTZmz4dOu2Bzg1f_E7poQ&s' },
-        { name: 'Option 5', description: 'Description 5', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEadAvccbrbvAwTuTZmz4dOu2Bzg1f_E7poQ&s' },
-        { name: 'Option 6', description: 'Description 6', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEadAvccbrbvAwTuTZmz4dOu2Bzg1f_E7poQ&s' },
-    ];
+    const [selected, setSelected] = useState(null)
+    const [places, setPlaces] = useState([])
+
+    const getData = async () => {
+        try {
+            const res = await getPlaces()
+            const { data } = await getStorage('placeList')
+            if (res && res.data) {
+                setPlaces(
+                    res.data.filter(
+                        (obj1) =>
+                            !data.some((obj2) => obj2.name === obj1.title),
+                    ),
+                )
+            }
+        } catch (error) {
+            console.log('Cannot get places:', error)
+        }
+    }
+
+    useEffect(() => {
+        if (places.length === 0) {
+            getData()
+        }
+    }, [places.length])
 
     const handleConfirm = async () => {
         if (selected !== null) {
-            const selectedOption = options[selected];
+            const selectedOption = places[selected]
             try {
-                await AsyncStorage.setItem('selectedOwnTrip', JSON.stringify(selectedOption));
-                navigation.goBack();
+                await storeData('selectedOwnTrip', selectedOption)
+                navigation.goBack()
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
         }
-    };
+    }
+
+    const handleDetail = async (placeId) => {
+        await storeData('placeId', { id: placeId })
+        navigation.navigate('PlaceDetail')
+    }
 
     return (
         <View style={styles.container}>
@@ -40,30 +67,53 @@ const OwnTripEdit = ({ navigation }) => {
                 <HeaderOwnTrip title={'Change place'} />
             </View>
             <ScrollView>
-                {options.map((option, index) => (
+                {places.map((option, index) => (
                     <TouchableOpacity
                         key={index}
                         style={styles.option}
                         onPress={() => setSelected(index)}
                     >
                         <View style={styles.optionContent}>
-                            <Image source={{ uri: `${option.url}` }} style={styles.imagePlaceholder} />
+                            <Image
+                                source={{ uri: `${option.images[0].url}` }}
+                                style={styles.imagePlaceholder}
+                            />
                             <View style={styles.textContainer}>
                                 <View>
-                                    <Text style={styles.optionName}>{option.name}</Text>
-                                    <Text style={styles.optionDescription} numberOfLines={3}>{option.description}</Text>
+                                    <Text style={styles.optionName}>
+                                        {option.title}
+                                    </Text>
+                                    <Text
+                                        style={styles.optionDescription}
+                                        numberOfLines={3}
+                                    >
+                                        {option.description}
+                                    </Text>
                                 </View>
-                                <TouchableOpacity style={styles.detailBtn} onPress={() => navigation.navigate('PlaceDetail')}>
-                                    <Text style={{ textAlign: 'center', color: COLORS.white }}>Detail</Text>
+                                <TouchableOpacity
+                                    style={styles.detailBtn}
+                                    onPress={() => handleDetail(option.id)}
+                                >
+                                    <Text
+                                        style={{
+                                            textAlign: 'center',
+                                            color: COLORS.white,
+                                        }}
+                                    >
+                                        Detail
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ marginLeft: 20 }}>
                             <FontAwesome
-                                name={selected === index ? "check-circle" : "circle-o"}
+                                name={
+                                    selected === index
+                                        ? 'check-circle'
+                                        : 'circle-o'
+                                }
                                 size={30}
-
-                                color={selected === index ? "green" : "gray"}
+                                color={selected === index ? 'green' : 'gray'}
                             />
                         </View>
                     </TouchableOpacity>
@@ -73,14 +123,14 @@ const OwnTripEdit = ({ navigation }) => {
                 <Text style={styles.btnText}>Confirm</Text>
             </TouchableOpacity>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: 30,
         flex: 1,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
     },
     option: {
         flexDirection: 'row',
@@ -91,12 +141,12 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         height: 150,
-        backgroundColor: COLORS.gray2
+        backgroundColor: COLORS.gray2,
     },
     optionContent: {
         flexDirection: 'row',
         flex: 1,
-        padding: 10
+        padding: 10,
     },
     imagePlaceholder: {
         width: 150,
@@ -105,7 +155,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1,
-        justifyContent: "space-between"
+        justifyContent: 'space-between',
     },
     optionName: {
         fontSize: SIZES.header,
@@ -123,20 +173,19 @@ const styles = StyleSheet.create({
         marginTop: 30,
         alignSelf: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     btnText: {
         color: COLORS.white,
         fontSize: SIZES.title,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     detailBtn: {
         paddingVertical: 7,
         backgroundColor: COLORS.darkGreen,
         width: 100,
-        borderRadius: 15
+        borderRadius: 15,
     },
+})
 
-});
-
-export default OwnTripEdit;
+export default OwnTripEdit

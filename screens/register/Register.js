@@ -36,10 +36,7 @@ const customStyles = {
     currentStepLabelColor: '#1A9244',
 }
 
-
-
 const Register = ({ navigation }) => {
-
     const checkStep = (position, setNewPosition) => {
         switch (position) {
             case 0:
@@ -60,7 +57,11 @@ const Register = ({ navigation }) => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             <View
-                style={{ height: '100%', paddingTop: 55, backgroundColor: '#FFF' }}
+                style={{
+                    height: '100%',
+                    paddingTop: 55,
+                    backgroundColor: '#FFF',
+                }}
             >
                 <StepIndicator
                     customStyles={customStyles}

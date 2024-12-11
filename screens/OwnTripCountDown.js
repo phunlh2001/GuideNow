@@ -1,43 +1,71 @@
-import { useFocusEffect } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import COLORS from '../constants/color';
+import { LinearGradient } from 'expo-linear-gradient'
+import React, { useCallback, useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import CoreButton from '../components/CoreButton'
+import COLORS from '../constants/color'
+import { clearStorage } from '../utils/storage'
+import { TouchableOpacity } from 'react-native'
+
+const defaultTime = 600 // 10 mins
 
 const OwnTripCountDown = ({ navigation }) => {
-    const [timeLeft, setTimeLeft] = useState(3);
+    const [timeLeft, setTimeLeft] = useState(defaultTime)
 
-    useFocusEffect(
+    const clear = async () => {
+        await clearStorage('comboObj')
+    }
+
+    const foundTourGuide = () => {
+        clear()
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'OwnTripFound' }],
+        })
+    }
+
+    useEffect(
         useCallback(() => {
             if (timeLeft > 0) {
                 const interval = setInterval(() => {
-                    setTimeLeft(timeLeft - 1);
-                }, 1000);
+                    setTimeLeft((prev) => prev - 1)
+                }, 1000)
                 return () => clearInterval(interval)
             } else if (timeLeft === 0) {
-                navigation.navigate('OwnTripFound');
+                foundTourGuide()
                 setTimeout(() => {
-                    setTimeLeft(3)
-                }, 1000);
+                    setTimeLeft(defaultTime)
+                }, 1000)
             }
-
-        }, [timeLeft]))
+        }, [timeLeft]),
+    )
 
     const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-    };
+        const minutes = Math.floor(seconds / 60)
+        const secs = seconds % 60
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`
+    }
 
     return (
-        <LinearGradient colors={[COLORS.brightGreen, COLORS.deepGreen, COLORS.hunterGreen]} style={styles.container}>
-            <View style={styles.circle}>
-                <Text style={styles.timeText}>{formatTime(timeLeft)}</Text>
-                <Text style={styles.infoText}>Please wait for the process to complete</Text>
-            </View>
+        <LinearGradient
+            colors={[COLORS.brightGreen, COLORS.deepGreen, COLORS.hunterGreen]}
+            style={styles.container}
+        >
+            <TouchableOpacity onPress={foundTourGuide}>
+                <View style={styles.circle}>
+                    <Text style={styles.timeText}>{formatTime(timeLeft)}</Text>
+                    <Text style={styles.infoText}>
+                        Please wait for the process to complete
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            <CoreButton
+                title="Cancel"
+                width="50%"
+                callBack={() => navigation.navigate('OwnTripBill')}
+            />
         </LinearGradient>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -66,8 +94,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginTop: 10,
         textAlign: 'center',
-        width: '50%'
+        width: '50%',
     },
-});
+})
 
-export default OwnTripCountDown;
+export default OwnTripCountDown

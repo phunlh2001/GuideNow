@@ -1,8 +1,9 @@
+import { FontAwesome } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { observer } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import {
     Image,
-    KeyboardAvoidingView,
     ScrollView,
     StyleSheet,
     Text,
@@ -11,19 +12,16 @@ import {
     View,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { observer } from 'mobx-react'
-import CoreButton from '../../../components/CoreButton'
-import { registrationStore } from '../../../mobx/registerStore'
 import iconLogo from '../../../assets/blueLogo.png'
-import { FontAwesome } from '@expo/vector-icons';
+import CoreButton from '../../../components/CoreButton'
 import COLORS from '../../../constants/color'
-import { Platform } from 'react-native'
+import { registrationStore } from '../../../mobx/registerStore'
 
 const CreateAccount = observer(({ goNext }) => {
     const navigation = useNavigation()
     const [isValid, setIsValid] = useState(false)
-    const [isPasswordVisible, setPasswordVisible] = useState(false);
-    const [isRePasswordVisible, setRePasswordVisible] = useState(false);
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
+    const [isRePasswordVisible, setRePasswordVisible] = useState(false)
     useEffect(() => {
         setIsValid(registrationStore.validateRegister())
     }, [
@@ -37,7 +35,10 @@ const CreateAccount = observer(({ goNext }) => {
     }
 
     return (
-        <ScrollView style={{ marginBottom: 100 }} showsVerticalScrollIndicator={false}>
+        <ScrollView
+            style={{ marginBottom: 100 }}
+            showsVerticalScrollIndicator={false}
+        >
             <View style={styles.container}>
                 <View style={styles.boxLogo}>
                     <Image source={iconLogo} style={styles.logo} />
@@ -46,12 +47,15 @@ const CreateAccount = observer(({ goNext }) => {
 
                 <View style={styles.boxTitle}>
                     <Text style={styles.title}>Register</Text>
-                    <Text style={styles.subTitle}>Please fill in the blanks</Text>
+                    <Text style={styles.subTitle}>
+                        Please fill in the blanks
+                    </Text>
                 </View>
 
                 <TextInput
+                    autoCapitalize="none"
                     style={styles.input}
-                    placeholder="UserName"
+                    placeholder="Username"
                     placeholderTextColor="#347E5B"
                     value={registrationStore.userName}
                     onChangeText={(text) => handleInputChange('userName', text)}
@@ -63,18 +67,30 @@ const CreateAccount = observer(({ goNext }) => {
                 )}
                 <View style={{ position: 'relative' }}>
                     <TextInput
+                        autoCapitalize="none"
                         style={styles.input}
                         placeholder="Password"
                         secureTextEntry={!isPasswordVisible}
                         placeholderTextColor="#347E5B"
                         value={registrationStore.password}
-                        onChangeText={(text) => handleInputChange('password', text)}
+                        onChangeText={(text) =>
+                            handleInputChange('password', text)
+                        }
                     />
-                    <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}
-                        style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => setPasswordVisible(!isPasswordVisible)}
+                        style={{
+                            position: 'absolute',
+                            alignSelf: 'flex-end',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '76%',
+                            right: 10,
+                        }}
+                    >
                         <View style={{ alignItems: 'center' }}>
                             <FontAwesome
-                                name={isPasswordVisible ? "eye-slash" : "eye"}
+                                name={isPasswordVisible ? 'eye-slash' : 'eye'}
                                 size={24}
                                 color={COLORS.darkGreen}
                             />
@@ -88,18 +104,32 @@ const CreateAccount = observer(({ goNext }) => {
                 )}
                 <View style={{ position: 'relative' }}>
                     <TextInput
+                        autoCapitalize="none"
                         style={styles.input}
                         placeholder="Re-enter password"
                         secureTextEntry={!isRePasswordVisible}
                         placeholderTextColor="#347E5B"
                         value={registrationStore.rePassword}
-                        onChangeText={(text) => handleInputChange('rePassword', text)}
+                        onChangeText={(text) =>
+                            handleInputChange('rePassword', text)
+                        }
                     />
-                    <TouchableOpacity onPress={() => setRePasswordVisible(!isRePasswordVisible)}
-                        style={{ position: 'absolute', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', height: '76%', right: 10 }}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            setRePasswordVisible(!isRePasswordVisible)
+                        }
+                        style={{
+                            position: 'absolute',
+                            alignSelf: 'flex-end',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '76%',
+                            right: 10,
+                        }}
+                    >
                         <View style={{ alignItems: 'center' }}>
                             <FontAwesome
-                                name={isRePasswordVisible ? "eye-slash" : "eye"}
+                                name={isRePasswordVisible ? 'eye-slash' : 'eye'}
                                 size={24}
                                 color={COLORS.darkGreen}
                             />
@@ -113,7 +143,9 @@ const CreateAccount = observer(({ goNext }) => {
                 )}
 
                 <View style={styles.boxButton}>
-                    <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('login')}
+                    >
                         <View style={styles.backButton}>
                             <Ionicons
                                 name="caret-back-outline"
@@ -134,7 +166,9 @@ const CreateAccount = observer(({ goNext }) => {
 
                 <View style={styles.moveRegister}>
                     <Text style={styles.moveText}>You have an account?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('login')}
+                    >
                         <Text style={styles.textSpaceMove}>Sign In</Text>
                     </TouchableOpacity>
                 </View>

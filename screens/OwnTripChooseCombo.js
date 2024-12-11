@@ -1,24 +1,28 @@
+import { FontAwesome } from '@expo/vector-icons'
+import React from 'react'
 import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    ScrollView,
-    TouchableOpacity,
     Dimensions,
+    ImageBackground,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native'
-import React, { useState } from 'react'
 import BackTitleList from '../components/BackTitleList'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
-import { ImageBackground } from 'react-native'
-import { globalData } from '../sampleData/data'
-import { FontAwesome } from '@expo/vector-icons'
+import { comboSample } from '../sampleData/comboSample'
+import { storeData } from '../utils/storage'
 
 const width = Dimensions.get('screen').width / 2 - 20
 
 const OwnTripChooseCombo = ({ navigation }) => {
-    const [departureDate, setDepartureDate] = useState(new Date())
+    const handlePressCombo = async (id, name) => {
+        await storeData('comboObj', { id, name })
+        navigation.navigate('OwnTripCombo')
+    }
+
     return (
         <View style={styles.container}>
             <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
@@ -36,34 +40,39 @@ const OwnTripChooseCombo = ({ navigation }) => {
                     </Text>
                 </View>
 
-                {globalData.map((_, index) => (
+                {comboSample.map((combo, index) => (
                     <View key={index} style={styles.itemContainer}>
                         <ScrollView
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             style={styles.horizonScroll}
                         >
-                            {globalData.map((_, index) => (
-                                <View
-                                    key={index}
-                                    style={styles.itemScroll}
-                                    activeOpacity={0.8}
-                                >
-                                    <ImageBackground
-                                        source={{ uri: `${_.url}` }}
-                                        resizeMode="cover"
-                                        style={styles.image}
-                                    ></ImageBackground>
-                                </View>
-                            ))}
+                            {/* Images start */}
+                            <View style={styles.itemScroll} activeOpacity={0.8}>
+                                <ImageBackground
+                                    source={{ uri: `${combo.url1}` }}
+                                    resizeMode="cover"
+                                    style={styles.image}
+                                />
+                            </View>
+                            <View style={styles.itemScroll} activeOpacity={0.8}>
+                                <ImageBackground
+                                    source={{ uri: `${combo.url2}` }}
+                                    resizeMode="cover"
+                                    style={styles.image}
+                                />
+                            </View>
+                            {/* Images end */}
                         </ScrollView>
                         <View style={{ padding: 10 }}>
                             <TouchableOpacity
                                 onPress={() =>
-                                    navigation.navigate('OwnTripCombo')
+                                    handlePressCombo(combo.id, combo.title)
                                 }
                             >
-                                <Text style={styles.headerName}>Name</Text>
+                                <Text style={styles.headerName}>
+                                    {combo.title}
+                                </Text>
                                 <View style={styles.ratingContainer}>
                                     <View style={styles.rating}>
                                         <Text style={styles.ratingText}>
@@ -75,13 +84,11 @@ const OwnTripChooseCombo = ({ navigation }) => {
                                             color={COLORS.white}
                                         />
                                     </View>
-                                    <Text style={styles.status}>Good</Text>
+                                    <Text style={styles.status}>
+                                        {combo.price}vnd / person
+                                    </Text>
                                 </View>
-                                <Text numberOfLines={5}>
-                                    Lorem ipsum dolor sit, amet consectetur
-                                    adipisicing elit. Voluptatem consequuntur a
-                                    quis amet nihil.
-                                </Text>
+                                <Text numberOfLines={5}>{combo.desc}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

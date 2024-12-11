@@ -1,18 +1,36 @@
 import { FontAwesome } from '@expo/vector-icons'
-import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Image } from 'react-native-elements'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import BackTitleList from '../components/BackTitleList'
 import COLORS from '../constants/color'
 import SIZES from '../constants/fontsize'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const OwnTripFound = ({ navigation }) => {
-    const [departureDate, setDepartureDate] = useState(new Date())
+    const handleBackButtonPress = () => {
+        Alert.alert(
+            'Confirm Back',
+            'Your order has been paid, are you sure you want to return to the home page?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => {},
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: () => navigation.navigate('DrawerGuide'),
+                },
+            ],
+            { cancelable: false },
+        )
+    }
+
     return (
         <View style={styles.container}>
             <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
-                <BackTitleList callBack={() => navigation.goBack()} />
+                <BackTitleList callBack={handleBackButtonPress} />
             </View>
 
             <View style={{ paddingHorizontal: 20 }}>
@@ -25,11 +43,22 @@ const OwnTripFound = ({ navigation }) => {
 
             <View style={styles.itemContainer}>
                 <View style={{ padding: 10, alignSelf: 'center' }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('TourGuideDetail')}>
-                        <Image source={{ uri: 'https://i.pinimg.com/564x/9d/4a/49/9d4a49b2b2b9392d3f844c4dbcff52d6.jpg' }}
-                            style={{ width: 250, height: 250, borderRadius: 1000, alignSelf: 'center', objectFit: 'cover' }}
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('TourGuideDetail')}
+                    >
+                        <Image
+                            source={{
+                                uri: 'https://png.pngtree.com/png-vector/20230527/ourmid/pngtree-suitable-for-mobile-apps-web-apps-and-print-media-the-vector-image-of-a-tour-guide-icon-is-available-vector-png-image_52259232.jpg',
+                            }}
+                            style={{
+                                width: 250,
+                                height: 250,
+                                borderRadius: 1000,
+                                alignSelf: 'center',
+                                objectFit: 'cover',
+                            }}
                         />
-                        <Text style={styles.headerName}>Name</Text>
+                        <Text style={styles.headerName}>Tour Guide A</Text>
                         <View style={styles.ratingContainer}>
                             <View style={styles.rating}>
                                 <Text style={styles.ratingText}>5.0</Text>
@@ -42,8 +71,14 @@ const OwnTripFound = ({ navigation }) => {
                             <Text style={styles.status}>Male</Text>
                             <Text style={styles.status}>Good</Text>
                         </View>
-                        <TouchableOpacity style={{ alignSelf: 'center', marginTop: 20 }}>
-                            <Ionicons name='chevron-down' size={30} color={COLORS.darkGreen} />
+                        <TouchableOpacity
+                            style={{ alignSelf: 'center', marginTop: 20 }}
+                        >
+                            <Ionicons
+                                name="chevron-down"
+                                size={30}
+                                color={COLORS.darkGreen}
+                            />
                         </TouchableOpacity>
                     </TouchableOpacity>
                 </View>

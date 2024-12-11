@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
-import Back from '../assets/back.png'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Image } from 'react-native-elements'
-import SIZES from '../constants/fontsize'
+import Back from '../assets/back.png'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import COLORS from '../constants/color'
 
@@ -34,17 +33,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    title: {
-        fontWeight: 'bold',
-        fontSize: SIZES.heroSection,
-    },
-    headerIcon: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        flexDirection: 'row',
-        height: '100%',
-        width: 50,
     },
 })

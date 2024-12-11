@@ -1,40 +1,70 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import COLORS from '../constants/color';
-import BackTitleButton from '../components/BackTitleButton';
-import SIZES from '../constants/fontsize';
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
+import COLORS from '../constants/color'
+import BackTitleButton from '../components/BackTitleButton'
+import SIZES from '../constants/fontsize'
 
 const GeneralInfomation = ({ navigation }) => {
     const MenuItem = ({ title, onPress }) => (
         <TouchableOpacity style={styles.menuItem} onPress={onPress}>
             <Text style={styles.menuText}>{title}</Text>
-            <FontAwesome name="chevron-right" size={24} color={COLORS.darkGreen} />
+            <FontAwesome
+                name="chevron-right"
+                size={24}
+                color={COLORS.darkGreen}
+            />
         </TouchableOpacity>
-    );
+    )
 
     return (
         <View style={styles.container}>
-            <BackTitleButton callBack={() => navigation.goBack()} title={'General information'} />
+            <BackTitleButton
+                callBack={() => navigation.goBack()}
+                title={'General information'}
+            />
             <View style={{ marginTop: 40, paddingHorizontal: 20 }}>
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>About app</Text>
-                    <MenuItem title="Terms of use" onPress={() => navigation.navigate('TermOfUse')} />
-                    <MenuItem title="Privacy policy" onPress={() => navigation.navigate('Policy')} />
-                    <MenuItem title="How it works" onPress={() => navigation.navigate('HowItWork')} />
+                    <MenuItem
+                        title="Terms of use"
+                        onPress={() => navigation.navigate('TermOfUse')}
+                    />
+                    <MenuItem
+                        title="Privacy policy"
+                        onPress={() => navigation.navigate('Policy')}
+                    />
+                    <MenuItem
+                        title="How it works"
+                        onPress={() => navigation.navigate('HowItWork')}
+                    />
                 </View>
 
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Social network</Text>
-                    <MenuItem title="Facebook" onPress={() => { }} />
-                    <MenuItem title="Website" onPress={() => { }} />
+                    <MenuItem
+                        title="Facebook"
+                        onPress={() =>
+                            Linking.openURL(
+                                'https://www.facebook.com/profile.php?id=61566022575543',
+                            )
+                        }
+                    />
+                    <MenuItem
+                        title="Website"
+                        onPress={() =>
+                            Linking.openURL(
+                                'https://www.facebook.com/profile.php?id=61566022575543',
+                            )
+                        }
+                    />
                 </View>
 
-                <Text style={styles.versionText}>Version 24.08.202412</Text>
+                <Text style={styles.versionText}>Version 1.5.1</Text>
             </View>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -67,6 +97,6 @@ const styles = StyleSheet.create({
         color: COLORS.gray,
         marginTop: 50,
     },
-});
+})
 
-export default GeneralInfomation;
+export default GeneralInfomation

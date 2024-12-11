@@ -27,6 +27,9 @@ import TermOfUse from '../screens/TermOfUse'
 import TourGuideDetail from '../screens/TourGuideDetail'
 import Photo from '../screens/register/components/Photo'
 import PlaceDetail from '../screens/PlaceDetail'
+import ForgotPassword from '../screens/ForgotPassword'
+import HistoryTour from '../screens/HistoryTour'
+import CSKH from '../screens/CSKH'
 
 export const routes = [
     {
@@ -167,11 +170,26 @@ export const routes = [
     {
         id: 28,
         name: 'Photo',
-        component: Photo
+        component: Photo,
     },
     {
         id: 29,
         name: 'PlaceDetail',
-        component: PlaceDetail
+        component: PlaceDetail,
+    },
+    {
+        id: 30,
+        name: 'ForgotPassword',
+        component: ForgotPassword,
+    },
+    {
+        id: 31,
+        name: 'HistoryTour',
+        component: HistoryTour,
+    },
+    {
+        id: 32,
+        name: 'CSKH',
+        component: CSKH,
     },
 ]

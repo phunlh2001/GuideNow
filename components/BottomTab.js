@@ -67,12 +67,6 @@ const TAB_WIDTH = TAB_BAR_WIDTH / tabs.length
 
 const TabIcon = ({ isFocused, tabIcon, label, index, isMiddle }) => {
     const [translateY] = useState(new Animated.Value(0))
-    const translateIcon = (value) => {
-        Animated.spring(translateY, {
-            toValue: value,
-            useNativeDriver: true,
-        }).start()
-    }
 
     return (
         <>

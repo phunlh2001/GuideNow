@@ -1,45 +1,53 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import SIZES from '../constants/fontsize'
-import COLORS from '../constants/color';
 import HomeHeader from '../components/HomeHeader'
+import COLORS from '../constants/color'
+import SIZES from '../constants/fontsize'
 const OwnTripSuccess = ({ navigation }) => {
     const handleBackToHome = () => {
         navigation.reset({
             index: 0,
-            routes: [{ name: 'AfterLogin' }]
+            routes: [{ name: 'AfterLogin' }],
         })
-    };
+    }
 
     return (
         <View style={styles.container}>
             <HomeHeader />
             <View style={styles.card}>
-                <Ionicons name='checkmark-circle' size={70} color={COLORS.darkGreen} style={{ marginBottom: 30 }} />
+                <Ionicons
+                    name="checkmark-circle"
+                    size={70}
+                    color={COLORS.darkGreen}
+                    style={{ marginBottom: 30 }}
+                />
                 <Text style={styles.title}>Successful transaction</Text>
             </View>
             <Text style={styles.description}>
                 You can check the schedule at section
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('History')}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('HistoryTour')}
+            >
                 <Text style={styles.link}>History</Text>
             </TouchableOpacity>
             <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                <TouchableOpacity onPress={handleBackToHome} style={styles.confirmBtn}>
+                <TouchableOpacity
+                    onPress={handleBackToHome}
+                    style={styles.confirmBtn}
+                >
                     <Text style={styles.btnText}>Back to Home</Text>
                 </TouchableOpacity>
             </View>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 30,
-
     },
     card: {
         justifyContent: 'center',
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: COLORS.black,
         width: '70%',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     description: {
         fontSize: SIZES.header,
@@ -68,14 +76,13 @@ const styles = StyleSheet.create({
         color: COLORS.black,
         textAlign: 'center',
         marginTop: 30,
-
     },
     link: {
         fontWeight: 'bold',
         color: COLORS.darkGreen,
         textAlign: 'center',
         marginTop: 20,
-        fontSize: SIZES.title
+        fontSize: SIZES.title,
     },
     confirmBtn: {
         backgroundColor: COLORS.darkGreen,
@@ -87,13 +94,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         position: 'absolute',
-        bottom: 0
+        bottom: 0,
     },
     btnText: {
         color: COLORS.white,
         fontSize: SIZES.title,
-        fontWeight: 'bold'
-    }
-});
+        fontWeight: 'bold',
+    },
+})
 
-export default OwnTripSuccess;
+export default OwnTripSuccess

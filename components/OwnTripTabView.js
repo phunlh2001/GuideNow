@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
     Animated,
     View,
@@ -8,60 +8,86 @@ import {
     Text,
     Dimensions,
     ScrollView,
-} from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
-import COLORS from '../constants/color';
-import SIZES from '../constants/fontsize';
-import { globalData } from '../sampleData/data';
-const width = Dimensions.get('screen').width / 2 - 30;
+} from 'react-native'
+import { TabView, SceneMap } from 'react-native-tab-view'
+import COLORS from '../constants/color'
+import SIZES from '../constants/fontsize'
+import { globalData } from '../sampleData/data'
+const width = Dimensions.get('screen').width / 2 - 30
 
 const OwnTripTabView = ({ callBack }) => {
-    const Card = ({ item }) => {
+    const Card = ({ items }) => {
         return (
             <View style={styles.displayAttrac}>
-                {item.map((_, index) => (
-                    <TouchableOpacity onPress={callBack} key={index}>
+                {items.map((item) => (
+                    <TouchableOpacity onPress={callBack} key={item.idx}>
                         <View style={styles.card}>
-                            <ImageBackground source={{ uri: `${_.url}` }} resizeMode='cover' imageStyle={{ borderRadius: 20 }} style={styles.image}>
-                                <View style={{ width: "100%", padding: 15, backgroundColor: 'rgba(0,0,0, 0.3)', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
-                                    <Text style={styles.title}>{_.title}</Text>
-                                    <Text style={styles.des} numberOfLines={3}>{_.des}</Text>
+                            <ImageBackground
+                                source={{ uri: `${item.url}` }}
+                                resizeMode="cover"
+                                imageStyle={{ borderRadius: 20 }}
+                                style={styles.image}
+                            >
+                                <View
+                                    style={{
+                                        width: '100%',
+                                        padding: 15,
+                                        backgroundColor: 'rgba(0,0,0, 0.3)',
+                                        borderBottomLeftRadius: 20,
+                                        borderBottomRightRadius: 20,
+                                    }}
+                                >
+                                    <Text style={styles.title}>
+                                        {item.title}
+                                    </Text>
+                                    <Text style={styles.des} numberOfLines={3}>
+                                        {item.des}
+                                    </Text>
                                 </View>
                             </ImageBackground>
                         </View>
                     </TouchableOpacity>
                 ))}
             </View>
-        );
-    };
+        )
+    }
 
     const NorthRoute = () => (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-            <Card item={globalData} />
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.container}
+        >
+            <Card items={globalData} />
         </ScrollView>
-    );
+    )
     const CentralRoute = () => (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-            <Card item={globalData} />
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.container}
+        >
+            <Card items={globalData} />
         </ScrollView>
-    );
+    )
     const SouthRoute = () => (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-            <Card item={globalData} />
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.container}
+        >
+            <Card items={globalData} />
         </ScrollView>
-    );
+    )
 
-    const [index, setIndex] = useState(0);
+    const [index, setIndex] = useState(0)
     const [routes] = useState([
         { key: 'north', title: 'North' },
         { key: 'central', title: 'Central' },
-        { key: 'south', title: 'South' }
-    ]);
+        { key: 'south', title: 'South' },
+    ])
 
-    const handleIndexChange = (i) => setIndex(i);
+    const handleIndexChange = (i) => setIndex(i)
 
     const renderTabBar = (props) => {
-        const inputRange = props.navigationState.routes.map((x, i) => i);
+        const inputRange = props.navigationState.routes.map((x, i) => i)
 
         return (
             <View style={styles.tabBar}>
@@ -69,35 +95,42 @@ const OwnTripTabView = ({ callBack }) => {
                     const opacity = props.position.interpolate({
                         inputRange,
                         outputRange: inputRange.map((inputIndex) =>
-                            inputIndex === i ? 1 : 0.5
+                            inputIndex === i ? 1 : 0.5,
                         ),
-                    });
+                    })
 
-                    const isActive = index === i;
+                    const isActive = index === i
                     return (
                         <TouchableOpacity
                             key={route.key}
                             style={[
                                 styles.tabItem,
-                                isActive && styles.activeTabItem
+                                isActive && styles.activeTabItem,
                             ]}
                             onPress={() => setIndex(i)}
                         >
-                            <Animated.Text style={{ opacity, color: isActive ? COLORS.white : COLORS.primary }}>
+                            <Animated.Text
+                                style={{
+                                    opacity,
+                                    color: isActive
+                                        ? COLORS.white
+                                        : COLORS.primary,
+                                }}
+                            >
                                 {route.title}
                             </Animated.Text>
                         </TouchableOpacity>
-                    );
+                    )
                 })}
             </View>
-        );
-    };
+        )
+    }
 
     const renderScene = SceneMap({
         north: NorthRoute,
         central: CentralRoute,
-        south: SouthRoute
-    });
+        south: SouthRoute,
+    })
 
     return (
         <TabView
@@ -106,10 +139,10 @@ const OwnTripTabView = ({ callBack }) => {
             renderTabBar={renderTabBar}
             onIndexChange={handleIndexChange}
         />
-    );
-};
+    )
+}
 
-export default OwnTripTabView;
+export default OwnTripTabView
 
 const styles = StyleSheet.create({
     container: {
@@ -122,7 +155,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         justifyContent: 'center',
         alignSelf: 'center',
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     tabItem: {
         alignItems: 'center',
@@ -130,7 +163,7 @@ const styles = StyleSheet.create({
         width: 'auto',
         paddingHorizontal: 20,
         paddingVertical: 5,
-        borderRadius: 20
+        borderRadius: 20,
     },
     activeTabItem: {
         backgroundColor: COLORS.primary,
@@ -145,23 +178,23 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         width: '100%',
-        justifyContent: "flex-end",
+        justifyContent: 'flex-end',
     },
     displayAttrac: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 20,
         justifyContent: 'center',
-        marginTop: 10
+        marginTop: 10,
     },
     title: {
         fontSize: SIZES.title,
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        color: COLORS.white
+        color: COLORS.white,
     },
     des: {
         fontSize: SIZES.caption,
-        color: COLORS.white
+        color: COLORS.white,
     },
-});
+})

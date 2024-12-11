@@ -1,11 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CoreButton from '../../../components/CoreButton'
 import VertifyCodeInput from '../../../components/VertifyCodeInput'
 import { useNavigation } from '@react-navigation/native'
+import { verify } from '../../../api/auth'
+import { registrationStore } from '../../../mobx/registerStore'
+import { error } from '../../../utils/toast'
 
 const VerificationScreen = ({ goNext }) => {
     const [verificationCode, setVerificationCode] = useState('')
+    const [code, setCode] = useState('')
+
+    useEffect(() => {
+        const triggerCode = async () => {
+            try {
+                const res = await verify({ email: registrationStore.email })
+                setCode(res.data)
+            } catch (err) {
+                error(err.message)
+            }
+        }
+
+        triggerCode()
+    }, [])
 
     const handleCodeChange = (code) => {
         setVerificationCode(code)
@@ -13,12 +30,13 @@ const VerificationScreen = ({ goNext }) => {
 
     const navigation = useNavigation()
 
-    const isCodeValid = verificationCode === '123456'
+    const isCodeValid = verificationCode === code
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
-                A verification code is sending to your phone number 01234858596
+                A verification code is sending to your email{' '}
+                {registrationStore.email}
             </Text>
             <VertifyCodeInput length={6} onCodeChange={handleCodeChange} />
             <View style={styles.moveRegister}>
@@ -39,7 +57,6 @@ const VerificationScreen = ({ goNext }) => {
                 <View style={{ flex: 1 }}>
                     <CoreButton
                         callBack={() => navigation.navigate('Photo')}
-                        //callBack={() => goNext(3)}
                         title={'NEXT'}
                         disabled={!isCodeValid}
                     />

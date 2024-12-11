@@ -1,17 +1,21 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-const CoreButton = ({ callBack, title, disabled = false }) => {
+const CoreButton = ({ callBack, title, disabled = false, ...props }) => {
     return (
         <>
             <TouchableOpacity
-                style={[styles.loginButton, disabled && styles.disabledButton]}
+                style={[
+                    styles.button,
+                    disabled && styles.disabledButton,
+                    { ...props },
+                ]}
                 onPress={callBack}
                 disabled={disabled}
             >
                 <Text
                     style={[
-                        styles.loginButtonText,
+                        styles.buttonText,
                         disabled && styles.disabledButtonText,
                     ]}
                 >
@@ -25,14 +29,14 @@ const CoreButton = ({ callBack, title, disabled = false }) => {
 export default CoreButton
 
 const styles = StyleSheet.create({
-    loginButton: {
+    button: {
         backgroundColor: '#347E5B', // Active button color
         paddingVertical: 15,
         borderRadius: 100,
         alignItems: 'center',
         width: '100%',
     },
-    loginButtonText: {
+    buttonText: {
         color: '#fff',
         fontSize: 16,
     },

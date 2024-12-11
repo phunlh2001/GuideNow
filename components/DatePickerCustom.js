@@ -4,7 +4,6 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 const DateInput = ({ placeholder = 'Select Date', onDateChange }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
-    const [date, setDate] = useState(null)
     const [dateText, setDateText] = useState('')
 
     const showDatePicker = () => {
@@ -16,7 +15,6 @@ const DateInput = ({ placeholder = 'Select Date', onDateChange }) => {
     }
 
     const handleConfirm = (selectedDate) => {
-        setDate(selectedDate)
         setDateText(selectedDate.toLocaleDateString()) // Cập nhật giá trị của input
         hideDatePicker()
 

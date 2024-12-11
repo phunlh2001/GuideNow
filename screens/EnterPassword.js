@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -14,13 +14,16 @@ import { FontAwesome } from '@expo/vector-icons'
 import COLORS from '../constants/color'
 import BackTitleButton from '../components/BackTitleButton'
 import SIZES from '../constants/fontsize'
+import { storeData } from '../utils/storage'
 
 const EnterPassword = ({ navigation }) => {
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [oldPassword, setOldPassword] = useState('')
     const [isPasswordVisible, setPasswordVisible] = useState(false)
-    const [isConfirmPasswordVisible, setConfirmPasswordVisible] =
-        useState(false)
+
+    const handleNext = async () => {
+        await storeData('oldPwd', oldPassword)
+        navigation.navigate('ResetPassword')
+    }
 
     return (
         <KeyboardAvoidingView
@@ -44,8 +47,8 @@ const EnterPassword = ({ navigation }) => {
                             />
                             <TextInput
                                 style={styles.input}
-                                value={newPassword}
-                                onChangeText={setNewPassword}
+                                value={oldPassword}
+                                onChangeText={setOldPassword}
                                 placeholder="PASSWORD"
                                 secureTextEntry={!isPasswordVisible}
                             />
@@ -71,7 +74,7 @@ const EnterPassword = ({ navigation }) => {
                         }}
                     >
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('ResetPassword')}
+                            onPress={handleNext}
                             style={styles.confirmBtn}
                         >
                             <Text style={styles.btnText}>Next</Text>
